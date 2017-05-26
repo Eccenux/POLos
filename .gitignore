@@ -1,0 +1,7 @@
+*.lnk
+*.ods#
+/.robocze
+/nbproject/private/
+/inc/dbConnect.php
+/.vists.log
+key.js
