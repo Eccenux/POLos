@@ -1,0 +1,168 @@
+/* main layout */
+html
+{
+	height:100%;
+}
+body
+{
+	margin:0;
+	padding:0;
+	min-height:100%;
+	font:14px sans-serif;
+	position:relative;
+}
+#header
+{
+	border-bottom-style:solid;
+	height: 90px;
+	background-image: url(../images/logo.gda.back.png);
+	background-repeat: repeat-x;
+	color: white;
+	text-shadow: 2px 1px 2px black;
+}
+#header a
+{
+	text-decoration:none;
+}
+#logo
+{
+	float:left;
+	background-image:url(../images/logo.gda.front.png);
+	background-repeat:no-repeat;
+	height: 90px;
+	width: 280px;
+}
+#stage
+{
+	font-size: 110%;
+	display: inline-block;
+	background-color: rgba(0,0,0,0.4);
+	margin: .5em;
+	padding: .2em .4em;
+	border-radius: .4em;
+}
+#header p
+{
+	display: none;
+	float:left;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 10px;
+}
+#container #content
+{
+	padding: 1em 1em 4em;	/* 1em + 3em (footer) */
+}
+#footer
+{
+	border-top-style:solid;
+	position:absolute;
+	bottom:0;
+	height: 3em;
+	width:100%;
+	text-align: right;
+}
+#footer p
+{
+	margin:0;
+	padding:1em;
+}
+
+/* menu */
+#menu
+{
+	/*float:left; messing up jquery ui tabs*/
+	position:absolute;
+	width: 140px;
+}
+#menu a
+{
+	text-decoration:none;
+}
+#container #content
+{
+	margin-left: 140px;
+	box-sizing: border-box;
+}
+#menu ul
+{
+	margin:0;
+	padding:.5em;
+}
+#menu ul,
+#menu li
+{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+#menu a
+{
+	display:block;
+	margin:.8em .2em;
+	padding:.2em .5em;
+	font-weight: bold;
+}
+#menu li li a
+{
+	font-weight: normal;
+}
+#menu li li a:before
+{
+	content:'• '
+}
+
+/* ticks */
+#footer #ticks
+{
+	margin:0;
+	padding:0 1em;
+}
+#ticks ul
+,#ticks li
+,#content .constraints ul
+,#content .constraints li
+{
+	margin:0;
+	padding:0;
+	list-style: none;
+	list-style-image: none;
+	display: inline-block;
+}
+body #ticks li:first-child:before
+,body #content .constraints li:first-child:before
+{
+	content:'';
+	padding:0;
+}
+#ticks li:before
+,#content .constraints li:before
+{
+	content:'•';
+	padding:0 .5em;
+}
+
+/* ograniczenia */
+#content .constraints
+{
+	margin:1em 0;
+	font-size: 90%;
+}
+
+/* tables */
+#content table
+,#content table td
+,#content table th
+{
+	padding:.2em .4em;
+	vertical-align: top;
+}
+#content table
+{
+	border-collapse:collapse;
+}
+#content table th
+{
+	vertical-align: bottom;
+}

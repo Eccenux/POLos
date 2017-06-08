@@ -1,0 +1,70 @@
+/*
+	Colors.
+
+	Gradients editor:
+	http://www.colorzilla.com/gradient-editor/
+*/
+
+html
+{
+	background-color: #eef;
+}
+
+/* content */
+#container #content
+{
+	background-color:white;
+}
+
+/* header & footer */
+#header
+{
+	border-bottom: 1px solid #ddd;
+	background-color:#fefcea;
+}
+#header a
+{
+	color: #333;
+}
+#footer
+{
+	border-top: 1px solid #eee;
+	color: #333;
+	background-color: whitesmoke;
+}
+
+/* menu */
+#menu a
+{
+	color:black;
+}
+#menu a:hover
+{
+	color:#903;
+}
+body
+{
+	background-color:whitesmoke;
+}
+
+/* ticks */
+#footer #ticks
+{
+	color: #9a9;
+}
+
+/* tables */
+#content table
+,#content table td
+,#content table th
+{
+	border:1px solid #336;
+}
+#content table
+{
+	background-color:#fff;
+}
+#content table th
+{
+	background-color:#ecf4ff;
+}
