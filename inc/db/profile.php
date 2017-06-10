@@ -44,6 +44,27 @@ class dbProfile extends dbBaseClass
 	);
 
 	/**
+	 * Stats "templates" and aggregation queries.
+	 *
+	 * @see dbBaseClass->pf_getStats
+	 * @var array
+	 */
+	protected $pv_sqlStatsTpls = array (
+		// liczba profili i zaproszeń
+		'total' =>
+			'SELECT count(*) as profiles, sum(invites_no) as invites
+			FROM profile
+			WHERE {pv_constraints|(1)}',
+		// liczba zaproszeń per region (dzielnica)
+		'region-invites' =>
+			'SELECT region, sum(invites_no) as invites
+			FROM profile
+			WHERE {pv_constraints|(1)}
+			GROUP BY region
+			ORDER BY 1 DESC',
+	);
+
+	/**
 	 * Aliased names of columns that are to be parsed as integers.
 	 *
 	 * @note All other columns are parsed as string/binary so this is purely optional.

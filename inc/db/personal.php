@@ -50,6 +50,27 @@ class dbPersonal extends dbBaseClass
 	);
 
 	/**
+	 * Stats "templates" and aggregation queries.
+	 *
+	 * @see dbBaseClass->pf_getStats
+	 * @var array
+	 */
+	protected $pv_sqlStatsTpls = array (
+		// liczba rekordów
+		'total' =>
+			'SELECT count(*) as people
+			FROM personal
+			WHERE {pv_constraints|(1)}',
+		// liczba zaproszeń per region (dzielnica)
+		'region-counts' =>
+			'SELECT region, count(*) as people
+			FROM personal
+			WHERE {pv_constraints|(1)}
+			GROUP BY region
+			ORDER BY 1 DESC',
+	);
+
+	/**
 	 * Aliased names of columns that are to be parsed as integers.
 	 *
 	 * @note All other columns are parsed as string/binary so this is purely optional.
