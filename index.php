@@ -97,6 +97,9 @@
 	//
 	else
 	{
+		$titles = $pv_mainMenu->getPageTitles($moduleName, $moduleAction);
+		$pv_page_title = $titles['title'];
+		
 		// Prepare&render menu
 		$pv_mainMenu->prepare();
 		ob_start();

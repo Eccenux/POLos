@@ -119,6 +119,40 @@ class MainMenu implements Iterator
 	}
 
 	/**
+	 * Create page title.
+	 */
+	public function getPageTitles($moduleName, $moduleAction='')
+	{
+		// get menu item
+		if (!isset($this->items[$moduleName]))
+		{
+			return null;
+		}
+		$menuItem = $this->items[$moduleName];
+
+		// main title
+		$titles = array(
+			'main' => $menuItem->title,
+			'sub' => '',
+		);
+
+		// sub-section title
+		$action = empty($moduleAction) ? '' : $moduleAction;
+		foreach($menuItem->submenu as $subItem) {
+			if ($subItem['action'] === $action) {
+				$titles['sub'] = $subItem['title'];
+			}
+		}
+		if (empty($titles['sub'])) {
+			$titles['title'] = $titles['main'];
+		} else {
+			$titles['title'] = $titles['sub'] . ' • ' . $titles['main'];
+		}
+
+		return $titles;
+	}
+
+	/**
 	 * Check if given user name is authorized to view the module.
 	 *
 	 * @note This does NOT check if user is logged in or anything like that. This just checks settings.
