@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <? $pv_page_title = empty($pv_page_title) ? 'Panel Helper' : htmlspecialchars($pv_page_title) . ' &bull; Panel Helper';?>
+    <? $pv_page_title = empty($pv_page_title) ? 'POLos' : htmlspecialchars($pv_page_title) . ' &bull; POLos';?>
     <title><?=$pv_page_title?></title>
 	
 	<link rel="icon" type="image/png" href="images/logo.png" />
