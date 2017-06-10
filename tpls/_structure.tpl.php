@@ -56,20 +56,7 @@
 	<div id="container">
 		<div id="header">
 			<div id="logo"></div><p><a href="index.php"><?=$pv_page_title?></a></p>
-			<div id="stage"><?php
-				switch ($configHelper->panel_stage)
-				{
-					case 'tests':
-						echo 'Etap testów';
-					break;
-					case 'draw':
-						echo 'Etap losowania';
-					break;
-					case 'results':
-						echo 'Etap wyników';
-					break;
-				}
-			?></div>
+			<div id="stage"><?=$pv_titles['main']?></div>
 		</div>
 		<div id="menu">
 			<?=$pv_mainMenu?>
