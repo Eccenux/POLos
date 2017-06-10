@@ -639,6 +639,21 @@ abstract class dbBaseClass
 	}
 
 	/**
+	 * A convenience function to get many stats in one function call.
+	 *
+	 * Same sa {@link pf_getStats()} except that it gets multiple stats into an asoc. array.
+	 *
+	 * Note! For now passes same constrains for each stats.
+	 */
+	public function pf_getStatsMany(&$pv_array, $pv_tplnames, $pv_constraints=array())
+	{
+		foreach ($pv_tplnames as $pv_tplname) {
+			$pv_array[$pv_tplname] = array();
+			$this->pf_getStats($pv_array[$pv_tplname], $pv_tplname, $pv_constraints);
+		}
+	}
+
+	/**
 	 * Returns records in format based on templates that are defined in {@link $pv_sqlStatsTpls}
 	 *
 	 * @note This is just a simplification that allows to quickly get and dump values in a varity of formats.
