@@ -5,3 +5,5 @@
 /inc/dbConnect.php
 /.vists.log
 key.js
+__DB.sql
+\!_mysql*.bat
