@@ -1,0 +1,9 @@
+#content label { font-weight: bold; }
+
+ul.sortable-columns { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+ul.sortable-columns li { margin: 5px; padding: 5px; width: 150px; }
+
+ul#import-sortable-columns {
+	list-style-type: upper-latin;
+	margin-left: 1em;
+}
