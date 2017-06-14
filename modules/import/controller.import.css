@@ -1,4 +1,6 @@
-#content label { font-weight: bold; }
+#import-form label { font-weight: bold; }
+#import-form { margin: 1em; }
+#import-form .buttons { margin-top: 1em; }
 
 ul.sortable-columns { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
 ul.sortable-columns li { margin: 5px; padding: 5px; width: 150px; }

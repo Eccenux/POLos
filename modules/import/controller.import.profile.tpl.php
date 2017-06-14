@@ -16,6 +16,8 @@
 	<?php include 'controller.import.css'; ?>
 </style>
 
+<form id="import-form" method="post" action="">
+
 <section>
 	<p><label for="import-csv">Plik CSV:</label> <input type="file" id="import-csv" /></p>
 </section>
@@ -45,3 +47,9 @@
 	</div>
 	<br clear="all"/>
 </section>
+
+<section class="buttons">
+	<input type="submit" name="save" value="Importuj" />
+</section>
+
+</form>
