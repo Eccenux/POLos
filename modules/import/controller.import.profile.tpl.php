@@ -19,17 +19,6 @@
 <p><label for="import-csv">Plik CSV:</label> <input type="file" id="import-csv" /></p>
 
 <p><label>Format pliku (kolejność kolumn):</label></p>
-<?/*
-<ul id="import-sortable-columns" class="sortable-columns">
-<?php foreach ($tplData['columns'] as $number => $column) { ?>
-	<?php if (empty($column)) { ?>
-		<li class="ui-state-highlight"><em>ignoruj</em></li>
-	<?php } else { ?>
-		<li class="ui-state-default" id="import-column-<?=$column['column']?>"><?=$column['title']?></li>
-	<?php } ?>
-<?php } ?>
-</ul>
-*/?>
 <script>
 $( function() {
 	$( "#import-sortable-columns" ).sortable({
@@ -56,6 +45,11 @@ $( function() {
 <style>
 	ul.sortable-columns { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
 	ul.sortable-columns li { margin: 5px; padding: 5px; width: 150px; }
+
+	ul#import-sortable-columns {
+		list-style-type: upper-latin;
+		margin-left: 1em;
+	}
 </style>
 
 <div style="float:left">
