@@ -13,7 +13,7 @@
 <h3>Nowe dane</h3>
 
 <style>
-	<?php include 'controller.import.css'; ?>
+	<?php include 'form.css'; ?>
 </style>
 
 <form id="import-form" method="post" action="">
@@ -25,7 +25,7 @@
 <section>
 	<p><label>Format pliku (kolejność kolumn):</label></p>
 	<script>
-		<?php include 'controller.import.columns.js'; ?>
+		<?php include 'import.columns.js'; ?>
 	</script>
 	<div style="float:left">
 		<ul id="import-sortable-columns" class="sortable-columns">
