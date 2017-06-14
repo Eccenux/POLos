@@ -139,4 +139,14 @@ class CsvParser
 			)
 		);
 	}
+	public static function parseColumnInteger($name, $value)
+	{
+		$check = is_numeric($value);
+		return array(
+			'state' => is_numeric($value) ? CsvRowState::OK : CsvRowState::INVALID,
+			'columns' => array(
+				$name => intval($value, 10),
+			)
+		);
+	}
 }
