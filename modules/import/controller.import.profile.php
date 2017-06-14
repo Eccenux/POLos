@@ -28,7 +28,7 @@
 		),
 		array(
 			'column' => 'age_min_max',
-			'title' => 'Zakres wieku',
+			'title' => 'Wiek (zakres)',
 		),
 		array(
 			'column' => 'region',
