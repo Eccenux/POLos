@@ -8,6 +8,9 @@
 	//
 	switch ($pv_controller->action)
 	{
+		case 'profile':
+			include $pv_controller->moduleDir.'/controller.import.profile.php';
+		break;
 		default:
 			include $pv_controller->moduleDir.'/controller.summary.php';
 		break;
