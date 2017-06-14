@@ -19,11 +19,8 @@ include $testedClass;
  */
 class CsvParserTest extends PHPUnit_Framework_TestCase
 {
-
-	/**
-	 * @var CsvParser
-	 */
-	protected $object;
+	private $profileCsv;
+	private $profileOrder;
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -31,8 +28,8 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$order = explode(',',  "-,group_name,sex,age_min_max,region,-,invites_no");
-		$this->object = new CsvParser(__DIR__.'\profile.csv', $order);
+		$this->profileCsv = __DIR__.'\profile.csv';
+		$this->profileOrder = explode(',',  "-,group_name,sex,age_min_max,region,-,invites_no");
 	}
 
 	/**
@@ -41,7 +38,6 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-
 	}
 
 	/**
@@ -51,9 +47,9 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testParseRow()
 	{
-		$this->object->order = array('name', 'age');
+		$parser = new CsvParser($this->profileCsv, array('name', 'age'));
 		$data = array('test', '1');
-		$row = $this->object->parseRow($data);
+		$row = $parser->parseRow($data);
 		var_export($row);
 		$this->assertEquals($row['columns']['name'], 'test');
 		$this->assertEquals($row['columns']['age'], '1');
