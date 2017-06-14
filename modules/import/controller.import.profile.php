@@ -9,6 +9,8 @@
 	
 	require_once ('./inc/db/profile.php');
 	$dbProfile = new dbProfile();
+
+	var_dump($_POST);
 	
 	// get
 	$tplData = array();

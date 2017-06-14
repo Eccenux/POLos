@@ -3,12 +3,12 @@
 </style>
 
 <section>
-	<p><label for="import-csv">Plik CSV:</label> <input type="file" id="import-csv" /></p>
+	<p><label for="import-csv">Plik CSV:</label> <input type="file" id="import-csv" name="csv" /></p>
 </section>
 
 <section>
 	<p><label>Format pliku (kolejność kolumn):</label></p>
-	<input type="hidden" id="import-order" />
+	<input type="hidden" id="import-order" name="order" />
 	<script>
 		<?php include 'import.columns.js'; ?>
 	</script>
