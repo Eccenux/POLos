@@ -24,6 +24,7 @@
 
 <section>
 	<p><label>Format pliku (kolejność kolumn):</label></p>
+	<input type="hidden" id="import-order" />
 	<script>
 		<?php include 'import.columns.js'; ?>
 	</script>
@@ -34,7 +35,7 @@
 					<li class="ui-state-highlight ignore-column"><em>ignoruj</em></li>
 				<?php } else { ?>
 					<li class="ui-state-default"
-						id="import-column-<?=$column['column']?>"
+						data-column="<?=$column['column']?>"
 					><?=$column['title']?></li>
 				<?php } ?>
 			<?php } ?>
@@ -53,3 +54,6 @@
 </section>
 
 </form>
+<script>
+	<?php include 'import.form.js'; ?>
+</script>
