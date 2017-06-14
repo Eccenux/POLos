@@ -1,0 +1,66 @@
+LP,Grupa,Płeć,Wiek,Dzielnica,Wykształcenie,Liczba zaproszeń
+1,Główna,Mężczyzna,40-64,    Aniołki,średnie,111
+2,Główna,Mężczyzna,25-39,    Brętowo,średnie,118
+3,Główna,Kobieta,65+,    Brzeźno,średnie,131
+4,Główna,Mężczyzna,25-39,    Brzeźno,średnie,131
+5,Główna,Kobieta,25-39,    Chełm,średnie,217
+6,Główna,Kobieta,40-64,    Chełm,podstawowe,217
+7,Główna,Kobieta,40-64,    Chełm,średnie,217
+8,Główna,Kobieta,65+,    Chełm,wyższe,217
+9,Główna,Kobieta,25-39,    Jasień,średnie,133
+10,Główna,Mężczyzna,40-64,    Jasień,podstawowe,133
+11,Główna,Mężczyzna,40-64,    Kokoszki,średnie,120
+12,Główna,Kobieta,40-64,    Krakowiec-Górki Zachodnie,wyższe,104
+13,Główna,Mężczyzna,40-64,    Letnica,wyższe,103
+14,Główna,Kobieta,40-64,    Matarnia,średnie,114
+15,Główna,Mężczyzna,25-39,    Młyniska,wyższe,107
+16,Główna,Mężczyzna,25-39,    Nowy Port,średnie,124
+17,Główna,Kobieta,65+,    Oliwa,wyższe,140
+18,Główna,Mężczyzna,40-64,    Oliwa,podstawowe,140
+19,Główna,Kobieta,40-64,    Olszynka,średnie,108
+20,Główna,Kobieta,40-64,    Orunia-Św. Wojciech-Lipce,wyższe,136
+21,Główna,Mężczyzna,40-64,    Orunia-Św. Wojciech-Lipce,średnie,136
+22,Główna,Kobieta,40-64,    Osowa,średnie,134
+23,Główna,Mężczyzna,40-64,    Osowa,średnie,134
+24,Główna,Kobieta,40-64,    Piecki-Migowo,wyższe,161
+25,Główna,Kobieta,65+,    Piecki-Migowo,średnie,161
+26,Główna,Mężczyzna,65+,    Piecki-Migowo,średnie,161
+27,Główna,Mężczyzna,25-39,    Przeróbka,średnie,111
+28,Główna,Kobieta,18-24,    Przymorze Małe,średnie,138
+29,Główna,Mężczyzna,40-64,    Przymorze Małe,średnie,138
+30,Główna,Kobieta,40-64,    Przymorze Wielkie,średnie,172
+31,Główna,Kobieta,25-39,    Przymorze Wielkie,średnie,172
+32,Główna,Kobieta,18-24,    Przymorze Wielkie,wyższe,172
+33,Główna,Mężczyzna,25-39,    Rudniki,wyższe,103
+34,Główna,Mężczyzna,65+,    Siedlce,średnie,133
+35,Główna,Kobieta,18-24,    Siedlce,podstawowe,133
+36,Główna,Mężczyzna,65+,    Stogi,podstawowe,128
+37,Główna,Mężczyzna,40-64,    Strzyża,średnie,113
+38,Główna,Kobieta,25-39,    Suchanino,wyższe,127
+39,Główna,Kobieta,40-64,    Śródmieście,średnie,166
+40,Główna,Kobieta,40-64,    Śródmieście,wyższe,166
+41,Główna,Kobieta,65+,    Śródmieście,średnie,166
+42,Główna,Kobieta,65+,    Ujeścisko-Łostowice,średnie,152
+43,Główna,Mężczyzna,65+,    Ujeścisko-Łostowice,wyższe,152
+44,Główna,Kobieta,25-39,    VII Dwór,podstawowe,109
+45,Główna,Mężczyzna,65+,    Wrzeszcz Dolny,średnie,158
+46,Główna,Kobieta,25-39,    Wrzeszcz Dolny,średnie,158
+47,Główna,Kobieta,40-64,    Wrzeszcz Górny,średnie,156
+48,Główna,Mężczyzna,25-39,    Wrzeszcz Górny,podstawowe,156
+49,Główna,Mężczyzna,65+,    Wyspa Sobieszewska,średnie,108
+50,Główna,Mężczyzna,65+,    Wzgórze Mickiewicza,wyższe,106
+51,Główna,Mężczyzna,25-39,    Zaspa-Młyniec,wyższe,134
+52,Główna,Kobieta,25-39,    Zaspa-Młyniec,wyższe,134
+53,Główna,Mężczyzna,65+,    Zaspa-Rozstaje,średnie,133
+54,Główna,Kobieta,65+,    Zaspa-Rozstaje,średnie,133
+55,Główna,Mężczyzna,18-24,    Żabianka-Wejhera-Jelitkowo-Tysiąclecia,wyższe,144
+56,Główna,Kobieta,40-64,    Żabianka-Wejhera-Jelitkowo-Tysiąclecia,wyższe,144
+57,Rezerwowa,Mężczyzna,40-64,    VII Dwór,wyższe,109
+58,Rezerwowa,Kobieta,40-64,    Wzgórze Mickiewicza,średnie,106
+59,Rezerwowa,Kobieta,65+,    Ujeścisko-Łostowice,średnie,152
+60,Rezerwowa,Mężczyzna,65+,    Zaspa-Rozstaje,podstawowe,133
+61,Rezerwowa,Mężczyzna,25-39,    Kokoszki,wyższe,120
+62,Rezerwowa,Mężczyzna,18-24,    Przymorze Wielkie,średnie,172
+63,Rezerwowa,Kobieta,25-39,    Śródmieście,średnie,166
+64,Rezerwowa,Kobieta,40-64,    Piecki-Migowo,średnie,161
+,,,,,,9042
