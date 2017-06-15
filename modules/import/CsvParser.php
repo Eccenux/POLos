@@ -59,7 +59,7 @@ class CsvParser
 	 * Parsed rows.
 	 * @var array
 	 */
-	private $rows = array();
+	public $rows = array();
 	/**
 	 * File handle.
 	 * @var resource
@@ -103,7 +103,7 @@ class CsvParser
 		$state = CsvParserState::OK;
 		while (($data = fgetcsv($handle, $this->maxPerLine)) !== FALSE) {
 			$row = $this->parseRow($data);
-			$this->rows[] = $row;
+			$this->rows[$row['state']][] = $row['columns'];
 			$totalRows++;
 			switch ($row['state'])
 			{
@@ -165,7 +165,6 @@ class CsvParser
 	}
 	public static function parseColumnInteger($name, $value)
 	{
-		$check = is_numeric($value);
 		return array(
 			'state' => is_numeric($value) ? CsvRowState::OK : CsvRowState::INVALID,
 			'columns' => array(
