@@ -90,9 +90,10 @@ class CsvParser
 	 * 
 	 * If an error occurs see \a messages for details.
 	 *
+	 * @param bool $appendCsvRow It true then adds `csv_row` to each valid and invalid row.
 	 * @return CsvParserState.
 	 */
-	public function parse()
+	public function parse($appendCsvRow = false)
 	{
 		if ($this->state === CsvParserState::GENERAL_ERROR) {
 			return $this->state;
@@ -101,8 +102,18 @@ class CsvParser
 		$totalRows = 0;
 		$validRows = 0;
 		$state = CsvParserState::OK;
-		while (($data = fgetcsv($handle, $this->maxPerLine)) !== FALSE) {
+		while (($raw_csv = fgets($handle, $this->maxPerLine)) !== false) {
+			if (strlen($raw_csv) + 1 > $this->maxPerLine) {
+				$this->messages[] = "Jeden z wierszy jest zbyt długi! Nie można przetworzyć pliku.";
+				$this->messages[] = "$raw_csv";
+				$state = CsvParserState::GENERAL_ERROR;
+				break;
+			}
+			$data = str_getcsv($raw_csv);
 			$row = $this->parseRow($data);
+			if ($appendCsvRow) {
+				$row['columns']['csv_row'] = $raw_csv;
+			}
 			$this->rows[$row['state']][] = $row['columns'];
 			$totalRows++;
 			switch ($row['state'])
