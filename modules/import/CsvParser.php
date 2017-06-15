@@ -224,8 +224,8 @@ class CsvParser
 		);
 		if (!empty($matches) && isset($matches['min'])) {
 			$ret['state'] = CsvRowState::OK;
-			$ret['columns'][$name.'min'] = intval($matches[$name.'min'], 10);
-			$ret['columns'][$name.'max'] = intval($matches[$name.'max'], 10);
+			$ret['columns'][$prefix.'min'] = intval($matches[$prefix.'min'], 10);
+			$ret['columns'][$prefix.'max'] = intval($matches[$prefix.'max'], 10);
 		}
 		return $ret;
 	}
