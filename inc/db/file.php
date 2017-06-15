@@ -3,23 +3,23 @@ $currentRoot = dirname(__FILE__);
 require_once $currentRoot.'/dbbase.class.php';
 
 /**
- * Presonal data class
+ * File data class
  *
  * @note Connection need to be established before methods of this class are used.
  */
-class dbPersonal extends dbBaseClass
+class dbFile extends dbBaseClass
 {
 	/**
 	 * @see dbBaseClass
 	 * @var string
 	 */
-	protected $pv_tableName = 'personal';
+	protected $pv_tableName = 'file';
 
 	/**
 	 * @see dbBaseClass
 	 * @var string
 	 */
-	protected $pv_defaultOrderSql = 'ORDER BY pesel';
+	protected $pv_defaultOrderSql = 'ORDER BY dt_change DESC';
 
 	/**
 	 * @see dbBaseClass
@@ -31,22 +31,11 @@ class dbPersonal extends dbBaseClass
 		'dt_create' => 'dt_create',
 		'dt_change' => 'dt_change',
 
-		'sex' => 'sex',
-		'age' => 'age',
-		'region' => 'region',
-
-		'pesel' => 'pesel',
-		
+		'type' => 'type',
+		'column_map' => 'column_map',
 		'name' => 'name',
-		'surname' => 'surname',
-		'city' => 'city',
-		'street' => 'street',
-		'building_no' => 'building_no',
-		'flat_no' => 'flat_no',
-		'zip_code' => 'zip_code',
 
-		'csv_row' => 'csv_row',
-		'csv_file' => 'csv_file',
+		'contents' => 'contents',
 	);
 
 	/**
@@ -58,26 +47,17 @@ class dbPersonal extends dbBaseClass
 	protected $pv_sqlStatsTpls = array (
 		// liczba rekordów
 		'total' =>
-			'SELECT count(*) as people
-			FROM personal
+			'SELECT count(*) as files
+			FROM file
 			WHERE {pv_constraints|(1)}',
 		// liczba zaproszeń per region (dzielnica)
-		'region-counts' =>
-			'SELECT region, count(*) as people
-			FROM personal
+		'type-counts' =>
+			'SELECT type, count(*) as files
+			FROM file
 			WHERE {pv_constraints|(1)}
-			GROUP BY region
+			GROUP BY type
 			ORDER BY 1 DESC',
 	);
-
-	/**
-	 * Aliased names of columns that are to be parsed as integers.
-	 *
-	 * @note All other columns are parsed as string/binary so this is purely optional.
-	 *
-	 * @var array
-	 */
-	protected $pv_intColumnsByAlias = array('age');
 
 	/**
 	 * Alised names of columns that are to be excluded when inserting records.
