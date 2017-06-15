@@ -103,7 +103,7 @@ class CsvParser
 		$validRows = 0;
 		$state = CsvParserState::OK;
 		while (($raw_csv = fgets($handle, $this->maxPerLine)) !== false) {
-			if (strlen($raw_csv) + 1 > $this->maxPerLine) {
+			if (strlen($raw_csv) + 1 >= $this->maxPerLine) {
 				$this->messages[] = "Jeden z wierszy jest zbyt długi! Nie można przetworzyć pliku.";
 				$this->messages[] = "$raw_csv";
 				$state = CsvParserState::GENERAL_ERROR;
