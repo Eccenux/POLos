@@ -44,6 +44,20 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Check columns ignore.
+	 * @covers CsvParser::parse
+	 */
+	public function testParse_profile_ignores()
+	{
+		$expectedColumnsCount = count($this->profileOrder) - 2;
+		$parser = new CsvParser($this->profileCsv, $this->profileOrder);
+		$parser->parse();
+		var_export($parser->rows);
+		$firstRow = $parser->rows[CsvRowState::OK][0];
+		$this->assertEquals($expectedColumnsCount, count($firstRow));
+	}
+	
+	/**
 	 * Basic parseRow test.
 	 * @covers CsvParser::parseRow
 	 */
