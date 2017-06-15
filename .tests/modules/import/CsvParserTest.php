@@ -65,13 +65,13 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	{
 		$expectedColumnsCount = count($this->profileOrder) - 2 + 1;
 		$parser = new CsvParser($this->profileCsv, $this->profileOrder);
-		$parser->parse();
 		$parser->columnParsers['invites_no'] = function($name, $value){
 			return CsvParser::parseColumnInteger($name, $value);
 		};
 		$parser->columnParsers['age_min_max'] = function($name, $value){
 			return CsvParser::parseColumnRange('age_', $value);
 		};
+		$parser->parse();
 		var_export($parser->rows);
 		$firstRow = $parser->rows[CsvRowState::OK][0];
 		$this->assertEquals($expectedColumnsCount, count($firstRow));
