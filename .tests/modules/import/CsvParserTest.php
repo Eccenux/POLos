@@ -78,7 +78,27 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 		$this->assertArrayNotHasKey(CsvRowState::WARNING, $parser->rows);
 		$this->assertArrayHasKey(CsvRowState::INVALID, $parser->rows);
 	}
-	
+
+	/**
+	 * Various, valid ranges test.
+	 * @covers CsvParser::parseColumnRange
+	 */
+	public function testParseColumnRange()
+	{
+		$values = array(
+			'123-345' => array('min'=>'123', 'max'=>'345'),
+			'123,345' => array('min'=>'123', 'max'=>'345'),
+			'123, 345' => array('min'=>'123', 'max'=>'345'),
+			'345+' => array('min'=>'345'),
+		);
+		foreach ($values as $value => $expected)
+		{
+			$result = CsvParser::parseColumnRange("", $value);
+			var_export($result);
+			$this->assertEquals($expected, $result['columns'], "value: $value");//.var_export($expected, true));
+		}
+	}
+
 	/**
 	 * Basic parseRow test.
 	 * @covers CsvParser::parseRow
