@@ -52,9 +52,25 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 		$expectedColumnsCount = count($this->profileOrder) - 2;
 		$parser = new CsvParser($this->profileCsv, $this->profileOrder);
 		$parser->parse();
-		var_export($parser->rows);
+		//var_export($parser->rows);
 		$firstRow = $parser->rows[CsvRowState::OK][0];
 		$this->assertEquals($expectedColumnsCount, count($firstRow));
+	}
+
+	/**
+	 * Check that raw CSV column is added.
+	 * @covers CsvParser::parse
+	 */
+	public function testParse_Profile_RawCsv()
+	{
+		$parser = new CsvParser($this->profileCsv, $this->profileOrder);
+		$parser->columnParsers['invites_no'] = function($name, $value){
+			return CsvParser::parseColumnInteger($name, $value);
+		};
+		$parser->parse(true);
+		$firstRow = $parser->rows[CsvRowState::OK][0];
+		var_export($firstRow);
+		$this->assertArrayHasKey('csv_row', $firstRow);
 	}
 
 	/**
@@ -72,8 +88,8 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 			return CsvParser::parseColumnRange('age_', $value);
 		};
 		$parser->parse();
-		var_export($parser->rows);
 		$firstRow = $parser->rows[CsvRowState::OK][0];
+		var_export($firstRow);
 		$this->assertEquals($expectedColumnsCount, count($firstRow));
 		$this->assertArrayNotHasKey(CsvRowState::WARNING, $parser->rows);
 		$this->assertArrayHasKey(CsvRowState::INVALID, $parser->rows);
@@ -94,7 +110,7 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 		foreach ($values as $value => $expected)
 		{
 			$result = CsvParser::parseColumnRange("", $value);
-			var_export($result);
+			//var_export($result);
 			$this->assertEquals($expected, $result['columns'], "Testing value: $value");//.var_export($expected, true));
 		}
 	}
