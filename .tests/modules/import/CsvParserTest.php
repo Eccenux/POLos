@@ -28,6 +28,9 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
+		echo "\nTest setUp"
+			."\n-------------\n"
+		;
 		$this->profileCsv = __DIR__.'\profile.csv';
 		$this->profileOrder = explode(',',  "-,group_name,sex,age_min_max,region,-,invites_no");
 	}
@@ -43,7 +46,6 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Basic parseRow test.
 	 * @covers CsvParser::parseRow
-	 * @todo   Implement testParseRow().
 	 */
 	public function testParseRow()
 	{
@@ -58,7 +60,6 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Custom column functions test.
 	 * @covers CsvParser::parseRow
-	 * @todo   Implement testParseRow().
 	 */
 	public function testParseRow_CustomFunction()
 	{
@@ -80,5 +81,56 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 		var_export($row);
 		$this->assertEquals($row['columns']['name'], 'test');
 		$this->assertEquals($row['state'], CsvRowState::INVALID);
+	}
+
+	/**
+	 * State combination test.
+	 * @covers CsvParser::parseRow
+	 */
+	public function testParseRow_StateCombination()
+	{
+		$columnParsers['ok'] = function($name, $value){
+			return array(
+				'state' => CsvRowState::OK,
+				'columns' => array(
+					$name => $value,
+				)
+			);
+		};
+		$columnParsers['invalid'] = function($name, $value){
+			return array(
+				'state' => CsvRowState::INVALID,
+				'columns' => array(
+					$name => $value,
+				)
+			);
+		};
+		$columnParsers['warning'] = function($name, $value){
+			return array(
+				'state' => CsvRowState::WARNING,
+				'columns' => array(
+					$name => $value,
+				)
+			);
+		};
+
+		// all states
+		$parser = new CsvParser(__FILE__, array('ok', 'invalid', 'warning'));
+		$parser->columnParsers = $columnParsers;
+		$data = array(1,2,3);
+		$row = $parser->parseRow($data);
+		echo "\n"; var_export($row);
+		$this->assertSame($row['state'], CsvRowState::OK | CsvRowState::INVALID | CsvRowState::WARNING);
+
+		// non-ok
+		$parser = new CsvParser(__FILE__, array('invalid', 'warning'));
+		$parser->columnParsers = $columnParsers;
+		$data = array(1,2,3);
+		$row = $parser->parseRow($data);
+		echo "\n"; var_export($row);
+		$this->assertSame($row['state'], CsvRowState::INVALID | CsvRowState::WARNING);
+		$this->assertNotEquals($row['state'], CsvRowState::OK);
+		$this->assertNotEquals($row['state'], CsvRowState::INVALID);
+		$this->assertNotEquals($row['state'], CsvRowState::WARNING);
 	}
 }
