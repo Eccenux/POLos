@@ -109,6 +109,7 @@ class CsvParser
 				$state = CsvParserState::GENERAL_ERROR;
 				break;
 			}
+			$raw_csv = rtrim($raw_csv);
 			$data = str_getcsv($raw_csv);
 			$row = $this->parseRow($data);
 			if ($appendCsvRow) {
