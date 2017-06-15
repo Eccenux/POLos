@@ -2,6 +2,7 @@
 
 /**
  * Parsing state enum.
+ * @note all values should be 2^n.
  */
 abstract class CsvParserState
 {
@@ -9,10 +10,12 @@ abstract class CsvParserState
 	const OK = 0;				// All rows are OK
 	const GENERAL_ERROR = 1;	// Failed to load file or all rows are invalid
 	const ROW_ERRORS = 2;		// Some row(s) are invalid
+	const ROW_WARNINGS = 4;		// Some row(s) are potentially invalid (e.g. too long values)
 }
 
 /**
  * States for rows (and columns).
+ * @note all values should be 2^n.
  */
 abstract class CsvRowState
 {
@@ -95,11 +98,32 @@ class CsvParser
 			return $this->state;
 		}
 		$handle = $this->file;
+		$totalRows = 0;
+		$validRows = 0;
+		$state = CsvParserState::OK;
 		while (($data = fgetcsv($handle, $this->maxPerLine)) !== FALSE) {
-			return $this->parseRow($data);
+			$row = $this->parseRow($data);
+			$this->rows[] = $row;
+			$totalRows++;
+			switch ($row['state'])
+			{
+				case CsvRowState::INVALID:
+					$state |= CsvParserState::ROW_ERRORS;
+				break;
+				case CsvRowState::WARNING:
+					$state |= CsvParserState::ROW_WARNINGS;
+				break;
+				default:
+					$validRows++;
+				break;
+			}
+		}
+		if (empty($validRows)) {
+			$this->messages[] = "Cały plik jest niepoprawny! Żaden odczytany wiersz nie był poprawny.";
+			$state = CsvParserState::GENERAL_ERROR;
 		}
 		fclose($handle);
-		$this->state = CsvParserState::OK;
+		$this->state = $state;
 		return $this->state;
 	}
 
