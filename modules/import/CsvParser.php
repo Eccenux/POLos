@@ -179,6 +179,22 @@ class CsvParser
 		);
 	}
 	/**
+	 * Required (non-empty string) column parser.
+	 *
+	 * @param String $name
+	 * @param String $value
+	 * @return array
+	 */
+	public static function parseColumnRequired($name, $value)
+	{
+		return array(
+			'state' => !empty($value) ? CsvRowState::OK : CsvRowState::INVALID,
+			'columns' => array(
+				$name => $value,
+			)
+		);
+	}
+	/**
 	 * Integer column parser.
 	 *
 	 * @param String $name
