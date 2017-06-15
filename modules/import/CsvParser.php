@@ -127,6 +127,11 @@ class CsvParser
 		return $this->state;
 	}
 
+	/**
+	 * Parse a row of CSV data.
+	 * @param array $data
+	 * @return array
+	 */
 	public function parseRow($data)
 	{
 		$count = count($data);
@@ -157,6 +162,13 @@ class CsvParser
 		);
 	}
 
+	/**
+	 * Default column parser.
+	 *
+	 * @param String $name Column name (like in the $this->order array).
+	 * @param String $value Value read from CSV.
+	 * @return array
+	 */
 	public function parseColumn($name, $value)
 	{
 		return array(
@@ -166,6 +178,13 @@ class CsvParser
 			)
 		);
 	}
+	/**
+	 * Integer column parser.
+	 *
+	 * @param String $name Column name (like in the $this->order array).
+	 * @param String $value Value read from CSV.
+	 * @return array
+	 */
 	public static function parseColumnInteger($name, $value)
 	{
 		return array(
