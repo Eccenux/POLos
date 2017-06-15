@@ -12,7 +12,7 @@
 
 <h3>Nowe dane</h3>
 
-<form id="import-form" method="post" action="">
+<form id="import-form" method="post" action="" enctype="multipart/form-data">
 	<?php include 'import.form.tpl.php'; ?>
 	<section class="buttons">
 		<input type="submit" name="save" value="Importuj" />
