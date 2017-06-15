@@ -74,7 +74,7 @@ class CsvParser
 	 * Parsing state.
 	 * @var CsvParserState
 	 */
-	private $state = null;
+	public $state = null;
 
 	public function __construct($path, $order)
 	{
