@@ -8,13 +8,11 @@ class ImportHelper
 
 	/**
 	 * Init.
-	 * @param string $order Order snet by user.
 	 * @param array $columnParsers Array of column parser functions.
 	 * @param string $type Type of file ('profile' / 'personal').
 	 */
-	function __construct($order, $columnParsers, $type)
+	function __construct($columnParsers, $type)
 	{
-		$this->order = $order;
 		$this->columnParsers = $columnParsers;
 		$this->type = $type;
 	}
@@ -26,12 +24,13 @@ class ImportHelper
 	 * That is when its state is `CsvParserState::GENERAL_ERROR`.
 	 * 
 	 * @param array $file Uploaded file specs from `$_FILES`.
+	 * @param string $order Order sent by user.
 	 * @return \CsvParser
 	 */
-	function parse($file) {
+	function parse($file, $order) {
 		// parse file
 		$csvPath = $file["tmp_name"];
-		$csvOrder = explode(",", $this->order);
+		$csvOrder = explode(",", $order);
 		$parser = new CsvParser($csvPath, $csvOrder);
 		$parser->columnParsers = $this->columnParsers;
 		$state = $parser->parse(true);
@@ -43,7 +42,7 @@ class ImportHelper
 			$dbFile = new dbFile();
 			$dbFile->pf_insRecord(array(
 				'type' => $this->type,
-				'column_map' => $this->order,
+				'column_map' => $order,
 				'name' => $file['name'],
 				'contents' => file_get_contents($csvPath),
 			));

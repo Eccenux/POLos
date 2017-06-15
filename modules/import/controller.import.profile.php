@@ -1,6 +1,6 @@
 <?
 	/**
-		@file Podsumowanie (statystyki)
+		@file Import profili zaproszeniowych.
 	*/
 	if ( !defined('NOT_HACKING_RILI') )
 	{
@@ -10,10 +10,23 @@
 	require_once ('./inc/db/profile.php');
 	$dbProfile = new dbProfile();
 
-	var_dump($_POST);
+	$tplData = array();
+
+	// save
+	if (!empty($_POST['save']) && !empty($_FILES['csv']) && !empty($_FILES['csv']["tmp_name"])) {
+		//echo "<pre>".var_export($_POST, true)."</pre>";
+		//echo "<pre>".var_export($_FILES, true)."</pre>";
+
+		require_once ('CsvParser.php');
+		require_once ('CsvParser.profile.php');
+		require_once ('ImportHelper.php');
+
+		// parse and save file
+		$helper = new ImportHelper($columnParsers, 'profile');
+		$helper->parse($_FILES['csv'], $_POST['order']);
+	}
 	
 	// get
-	$tplData = array();
 	$tplData['profile'] = array();
 	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'));
 
