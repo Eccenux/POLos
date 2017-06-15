@@ -138,6 +138,9 @@ class CsvParser
 		$row_columns = array();
 		for ($c=0; $c < $count; $c++) {
 			$name = $this->order[$c];
+			if ($name === $this->ignoreName) {
+				continue;
+			}
 			$value = $data[$c];
 			if (isset($this->columnParsers[$name]) && is_callable($this->columnParsers[$name])) {
 				$parsed = $this->columnParsers[$name]($name, $value);
