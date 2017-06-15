@@ -47,7 +47,7 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 * Check columns ignore.
 	 * @covers CsvParser::parse
 	 */
-	public function testParse_profile_ignores()
+	public function testParse_Profile_Ignores()
 	{
 		$expectedColumnsCount = count($this->profileOrder) - 2;
 		$parser = new CsvParser($this->profileCsv, $this->profileOrder);
@@ -61,7 +61,7 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 * Check column parsers for profiles.
 	 * @covers CsvParser::parse
 	 */
-	public function testParse_profile_columnParsers()
+	public function testParse_Profile_ColumnParsers()
 	{
 		$expectedColumnsCount = count($this->profileOrder) - 2 + 1;
 		$parser = new CsvParser($this->profileCsv, $this->profileOrder);
@@ -95,7 +95,7 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 		{
 			$result = CsvParser::parseColumnRange("", $value);
 			var_export($result);
-			$this->assertEquals($expected, $result['columns'], "value: $value");//.var_export($expected, true));
+			$this->assertEquals($expected, $result['columns'], "Testing value: $value");//.var_export($expected, true));
 		}
 	}
 
@@ -137,6 +137,40 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 		var_export($row);
 		$this->assertEquals($row['columns']['name'], 'test');
 		$this->assertEquals($row['state'], CsvRowState::INVALID);
+	}
+	/**
+	 * Test requirement validation.
+	 * @covers CsvParser::parseRow
+	 */
+	public function testParseRow_Requirement()
+	{
+		$parser = new CsvParser(__FILE__, array('name', 'age'));
+		$parser->columnParsers['name'] = function($name, $value){
+			return CsvParser::parseColumnRequired($name, $value);
+		};
+		$parser->columnParsers['age'] = function($name, $value){
+			return CsvParser::parseColumnInteger($name, $value);
+		};
+		// OK
+		$data = array('test', '1');
+		$row = $parser->parseRow($data);
+		var_export($row);
+		$this->assertEquals($row['columns']['name'], 'test');
+		$this->assertSame($row['columns']['age'], 1);
+		$this->assertEquals($row['state'], CsvRowState::OK);
+
+		$values = array(
+			',123' => CsvRowState::INVALID,
+			'a,123' => CsvRowState::OK,
+			'123,123' => CsvRowState::OK,
+			'123,abc' => CsvRowState::INVALID,	// valid name, but not age
+		);
+		foreach ($values as $value => $expected)
+		{
+			$data = explode(",", $value);
+			$row = $parser->parseRow($data);
+			$this->assertEquals($expected, $row['state'], "Testing value: $value");//.var_export($expected, true));
+		}
 	}
 
 	/**
