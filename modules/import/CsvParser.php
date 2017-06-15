@@ -121,7 +121,7 @@ class CsvParser
 				$parsed = $this->parseColumn($name, $value);
 			}
 			$row_columns = array_merge($row_columns, $parsed['columns']);
-			$row_state &= $parsed['state'];
+			$row_state |= $parsed['state'];
         }
 		
 		return array(
