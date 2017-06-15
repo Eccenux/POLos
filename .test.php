@@ -7,6 +7,7 @@ date_default_timezone_set('Europe/Paris');
 
 require_once './modules/import/CsvParser.php';
 
+// basic profile parsing
 /**
 $dir = 'D:\_Varia\OkoloWWW\_moje - varia\PHP\POLos\.tests\modules\import';
 $profileCsv = $dir.'\profile.csv';
@@ -21,6 +22,8 @@ $expectedColumnsCount = count($profileOrder) - 2;
 var_dump($parsedColumnsCount, $expectedColumnsCount);
 /**/
 
+// range parsing
+/**
 $values = array(
 	'123-345' => array('min'=>'123', 'max'=>'345'),
 	'123,345' => array('min'=>'123', 'max'=>'345'),
@@ -36,3 +39,4 @@ foreach ($values as $value => $expected)
 	echo "\n";
 	var_export($matches);
 }
+/**/
