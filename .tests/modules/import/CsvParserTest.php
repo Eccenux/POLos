@@ -47,12 +47,38 @@ class CsvParserTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testParseRow()
 	{
-		$parser = new CsvParser($this->profileCsv, array('name', 'age'));
+		$parser = new CsvParser(__FILE__, array('name', 'age'));
 		$data = array('test', '1');
 		$row = $parser->parseRow($data);
 		var_export($row);
 		$this->assertEquals($row['columns']['name'], 'test');
 		$this->assertEquals($row['columns']['age'], '1');
 		$this->assertEquals($row['state'], CsvRowState::OK);
+	}
+	/**
+	 * Custom column functions test.
+	 * @covers CsvParser::parseRow
+	 * @todo   Implement testParseRow().
+	 */
+	public function testParseRow_CustomFunction()
+	{
+		$parser = new CsvParser(__FILE__, array('name', 'age'));
+		$parser->columnParsers['age'] = function($name, $value){
+			return CsvParser::parseColumnInteger($name, $value);
+		};
+		// OK
+		$data = array('test', '1');
+		$row = $parser->parseRow($data);
+		var_export($row);
+		$this->assertEquals($row['columns']['name'], 'test');
+		$this->assertSame($row['columns']['age'], 1);
+		$this->assertEquals($row['state'], CsvRowState::OK);
+
+		// invalid
+		$data = array('test', 'abc');
+		$row = $parser->parseRow($data);
+		var_export($row);
+		$this->assertEquals($row['columns']['name'], 'test');
+		$this->assertEquals($row['state'], CsvRowState::INVALID);
 	}
 }
