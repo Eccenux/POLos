@@ -181,8 +181,8 @@ class CsvParser
 	/**
 	 * Integer column parser.
 	 *
-	 * @param String $name Column name (like in the $this->order array).
-	 * @param String $value Value read from CSV.
+	 * @param String $name
+	 * @param String $value
 	 * @return array
 	 */
 	public static function parseColumnInteger($name, $value)
@@ -193,5 +193,40 @@ class CsvParser
 				$name => intval($value, 10),
 			)
 		);
+	}
+	/**
+	 * Range column parser.
+	 *
+	 * Accepted formats:
+	 * `123-345`
+	 * `123,345`
+	 * `123, 345`
+	 * `345+` (means 345 or above)
+	 *
+	 * @param String $prefix Column prefix.
+	 * @param String $value
+	 * @return array
+	 */
+	public static function parseColumnRange($prefix, $value)
+	{
+		$matches = array();
+		preg_match(
+			"#(?P<min>\\d+)(?:"
+			."[^\\d]*\\+"	// no top boundary
+			."|"
+			."[^\\d]+(?P<max>\\d+)"
+			.")#"
+			, $value, $matches
+		);
+		$ret = array(
+			'state' => CsvRowState::INVALID,
+			'columns' => array(),
+		);
+		if (!empty($matches) && isset($matches['min'])) {
+			$ret['state'] = CsvRowState::OK;
+			$ret['columns'][$name.'min'] = intval($matches[$name.'min'], 10);
+			$ret['columns'][$name.'max'] = intval($matches[$name.'max'], 10);
+		}
+		return $ret;
 	}
 }
