@@ -24,11 +24,13 @@
 		// parse and save file
 		$helper = new ImportHelper($columnParsers, 'profile');
 		$helper->parse($_FILES['csv'], $_POST['order']);
-		$helper->save(function($record, $rowState, $fileId) use ($dbProfile) {
+		$saveStatus = $helper->save(function($record, $rowState, $fileId) use ($dbProfile) {
 			ImportHelper::insRecord($dbProfile, $record, $rowState, $fileId);
 		});
-		if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {
-			$dbProfile->pf_delRecords(array('csv_file' => array('!=', $helper->fileId)));
+		if ($saveStatus) {
+			if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {
+				$dbProfile->pf_delRecords(array('csv_file' => array('!=', $helper->fileId)));
+			}
 		}
 		$tplData['parserInfo'] = $helper->infoBuild();
 	}
