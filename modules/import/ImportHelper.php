@@ -52,6 +52,28 @@ class ImportHelper
 	}
 
 	/**
+	 * Checks if row count is near popular formats limitations.
+	 * @param number $rowsCount
+	 * @return string yes/probably/not
+	 */
+	private static function isSuspicious($rowsCount) {
+		$files = array(
+			'oldXls' => 16384,
+			'newXls' => 65536,
+			'xlsx' => 1048576,
+		);
+		foreach ($files as $limit) {
+			if (abs($rowsCount - $limit) < 20) {
+				if (abs($rowsCount - $limit) < 2) {
+					return "yes";
+				}
+				return "probably";
+			}
+		}
+		return "not";
+	}
+
+	/**
 	 * Information about parsing.
 	 *
 	 * @param CsvParser $parser The parser object.
@@ -67,6 +89,33 @@ class ImportHelper
 			'warning' => !isset($parser->rows[CsvRowState::WARNING]) ? 0 : count($parser->rows[CsvRowState::WARNING]),
 		);
 
+		// check for XLS/XLSX/ODT limits
+		$total = $rowsCount['ok'] + $rowsCount['invalid'] + $rowsCount['warning'];
+		$totalSuspicious = "";
+		$total = 65556;
+		switch (self::isSuspicious($total)) {
+			case "yes":
+				$totalSuspicious =
+					"<div class='message error'>"
+						. "<p>Liczba wierszy w przesłanym pliku jest BARDZO podejrzana!"
+						. "<p>Wygląda na to, że przekraczasz limit danych, "
+							. "które można przechowywać w arkuszach typu Excel."
+						. "<p>Prześlij brakujące dane!"
+					. "</div>"
+				;
+			break;
+			case "probably":
+				$totalSuspicious =
+					"<div class='message warning'>"
+						. "<p>Liczba wierszy w przesłanym pliku jest dosyć podejrzana. "
+						. "<p>Możliwe, że przekraczasz limit danych, "
+							. "które można przechowywać w arkuszach typu Excel."
+						. "<p>Zweryfikuj swój plik i w razie potrzeby prześlij brakujące dane."
+					. "</div>"
+				;
+			break;
+		}
+
 		// state info
 		switch ($parser->state) {
 			case CsvParserState::GENERAL_ERROR:
@@ -78,7 +127,12 @@ class ImportHelper
 				;
 			break;
 			case CsvParserState::OK:
-				$html .= "<div class='message success'>OK! Wszystkie dane zostały pomyślnie przetworzone.</div>";
+				if (empty($totalSuspicious)) {
+					$html .= "<div class='message success'>OK! Wszystkie dane zostały pomyślnie przetworzone.</div>";
+				} else {
+					$html .= "<div class='message success'>Dane zostały przetworzone, ale...</div>";
+					$html .= "$totalSuspicious";
+				}
 			break;
 			//CsvParserState::ROW_WARNINGS || case CsvParserState::ROW_ERRORS
 			default:
@@ -92,6 +146,9 @@ class ImportHelper
 						. "Dane zostały zaimportowane."
 					. "</div>"
 				;
+				if (!empty($totalSuspicious)) {
+					$html .= "$totalSuspicious";
+				}
 			break;
 		}
 
