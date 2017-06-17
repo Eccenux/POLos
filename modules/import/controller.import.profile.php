@@ -24,6 +24,9 @@
 		// parse and save file
 		$helper = new ImportHelper($columnParsers, 'profile');
 		$helper->parse($_FILES['csv'], $_POST['order']);
+		$helper->save(function($record, $rowState) use ($dbProfile) {
+			ImportHelper::insRecord($dbProfile, $record, $rowState);
+		});
 		$tplData['parserInfo'] = $helper->infoBuild();
 	}
 	

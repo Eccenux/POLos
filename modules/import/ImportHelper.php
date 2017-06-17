@@ -51,6 +51,50 @@ class ImportHelper
 		$this->parser = $parser;
 		return $parser;
 	}
+	
+	/**
+	 * Standard record insert.
+	 */
+	static function insRecord(&$dbClass, &$record, $rowState) {
+		if ($rowState === CsvRowState::OK) {
+			if (!$dbClass->pf_insRecord($record)) {
+				$rowState = CsvRowState::INVALID;	// set to invalid to re-attempt saving as invalid
+			}
+		}
+		if ($rowState !== CsvRowState::OK) {
+			$invalidRecord = array(
+				'row_state' => $rowState,
+				'csv_row' => $record['csv_row'],
+			);
+			$dbClass->pf_insRecord($invalidRecord);
+		}
+	}
+
+	/**
+	 * Save data.
+	 *
+	 * Note! The data will not be save to DB if parser was not able to parse the file.
+	 * That is when its state is `CsvParserState::GENERAL_ERROR`.
+	 *
+	 * @param callable $insRecord Function for inserting a row record.
+	 */
+	function save($insRecord) {
+		$parser = $this->parser;
+		$state = $parser->state;
+
+		if ($state === CsvParserState::GENERAL_ERROR) {
+			return false;
+		}
+		foreach ($parser->rows as $rowState => $records)
+		{
+			foreach ($records as $record)
+			{
+				$insRecord($record, $rowState);
+			}
+		}
+		return true;
+	}
+
 
 	/**
 	 * Checks if row count is near popular formats limitations.
