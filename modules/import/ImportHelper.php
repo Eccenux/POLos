@@ -5,6 +5,11 @@
 class ImportHelper
 {
 	public $parser = null;
+	/**
+	 * Id of the saved file. Can be used as a reference.
+	 * @var int
+	 */
+	public $fileId = null;
 
 	/**
 	 * Init.
@@ -22,7 +27,7 @@ class ImportHelper
 	 *
 	 * Note! The file will not be save to DB if parser was not able to parse the file.
 	 * That is when its state is `CsvParserState::GENERAL_ERROR`.
-	 * 
+	 *
 	 * @param array $file Uploaded file specs from `$_FILES`.
 	 * @param string $order Order sent by user.
 	 * @return \CsvParser
@@ -40,23 +45,24 @@ class ImportHelper
 			// save file
 			require_once ('./inc/db/file.php');
 			$dbFile = new dbFile();
-			$dbFile->pf_insRecord(array(
+			$this->fileId = $dbFile->pf_insRecord(array(
 				'type' => $this->type,
 				'column_map' => $order,
 				'name' => $file['name'],
 				'contents' => file_get_contents($csvPath),
-			));
+			), true);
 		}
 
 		$this->parser = $parser;
 		return $parser;
 	}
-	
+
 	/**
 	 * Standard record insert.
 	 */
-	static function insRecord(&$dbClass, &$record, $rowState) {
+	static function insRecord(&$dbClass, &$record, $rowState, $fileId) {
 		if ($rowState === CsvRowState::OK) {
+			$record['csv_file'] = $fileId;
 			if (!$dbClass->pf_insRecord($record)) {
 				$rowState = CsvRowState::INVALID;	// set to invalid to re-attempt saving as invalid
 			}
@@ -64,6 +70,7 @@ class ImportHelper
 		if ($rowState !== CsvRowState::OK) {
 			$invalidRecord = array(
 				'row_state' => $rowState,
+				'csv_file' => $fileId,
 				'csv_row' => $record['csv_row'],
 			);
 			$dbClass->pf_insRecord($invalidRecord);
@@ -89,7 +96,7 @@ class ImportHelper
 		{
 			foreach ($records as $record)
 			{
-				$insRecord($record, $rowState);
+				$insRecord($record, $rowState, $this->fileId);
 			}
 		}
 		return true;
@@ -165,7 +172,7 @@ class ImportHelper
 		// state info
 		switch ($parser->state) {
 			case CsvParserState::GENERAL_ERROR:
-				$html .= 
+				$html .=
 					"<div class='message error'>"
 						. "Błąd! Przetwarzanie pliku nie powiodło się. "
 						. "Dane nie zostały zapisane."
