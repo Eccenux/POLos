@@ -7,6 +7,16 @@
 </section>
 
 <section>
+	<label>Napisać dane?</label>
+	<div class="buttonset">
+		<input type="radio" name="overwrite" id="import-overwrite-y" value="y"
+			><label for="import-overwrite-y">Tak, skasuj dane</label>
+		<input type="radio" name="overwrite" id="import-overwrite-n" value="n" checked="checked"
+			><label for="import-overwrite-n">Nie, dopisz dane</label>
+	</div>
+</section>
+
+<section>
 	<p><label>Format pliku (kolejność kolumn):</label></p>
 	<input type="hidden" id="import-order" name="order" />
 	<script>
