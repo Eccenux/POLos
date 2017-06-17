@@ -76,6 +76,27 @@ class PeselParserTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers PeselParser::sexFromPesel
+	 * @todo   Implement testSexFromPesel().
+	 */
+	public function testSexFromPesel()
+	{
+		$values = array(
+			'55021468388' => 'K',
+			'70061614472' => 'M',
+			'71060136671' => 'M',
+			'83083165459' => 'M',
+			'55021468388' => 'K',
+		);
+		foreach ($values as $pesel => $expected)
+		{
+			$result = PeselParser::sexFromPesel($pesel);
+			$this->assertEquals($expected, $result, "Testing: $pesel");
+		}
+	}
+
+
+	/**
 	 * @covers PeselParser::ageFromPesel
 	 * @todo   Implement testAgeFromPesel().
 	 */

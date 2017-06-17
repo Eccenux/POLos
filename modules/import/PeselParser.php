@@ -69,4 +69,14 @@ class PeselParser
 		$diff = $date->diff($now);
 		return $diff->y;
 	}
+
+	/**
+	 * Get sex form PESEL.
+	 * @param string $pesel
+	 * @return string Polish first letter.
+	 */
+	static function sexFromPesel($pesel) {
+		return $pesel[9] % 2 === 1 ? "M" : "K";
+	}
+
 }
