@@ -183,6 +183,11 @@ body #ticks li:first-child:before
 	padding: 1em;
 	margin: .5em 0 1em;
 }
+.message.note {
+}
+.message.success {
+	background-color: greenyellow;
+}
 .message.error {
 	border-color: black;
 	background-color: coral;
@@ -190,6 +195,12 @@ body #ticks li:first-child:before
 .message.warning {
 	border-color: black;
 	background-color: gold;
+}
+.message p:first-child {
+	margin-top: 0;
+}
+.message p:last-child {
+	margin-bottom: 0;
 }
 .extra-info {
 
