@@ -48,6 +48,7 @@ class ImportHelper
 			));
 		}
 
+		$this->parser = $parser;
 		return $parser;
 	}
 
@@ -76,11 +77,12 @@ class ImportHelper
 	/**
 	 * Information about parsing.
 	 *
-	 * @param CsvParser $parser The parser object.
-	 * @return
+	 * @return string HTML messages.
 	 */
-	function infoBuild($parser) {
+	function infoBuild() {
 		$html = "";
+
+		$parser = $this->parser;
 
 		// count rows
 		$rowsCount = array(

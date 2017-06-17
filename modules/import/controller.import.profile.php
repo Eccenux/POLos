@@ -23,11 +23,8 @@
 
 		// parse and save file
 		$helper = new ImportHelper($columnParsers, 'profile');
-		$parser = $helper->parse($_FILES['csv'], $_POST['order']);
-		//echo "<pre>".var_export($parser->state)."</pre>";
-		//echo "<pre>".var_export($parser->messages)."</pre>";
-
-		$tplData['parserInfo'] = $helper->infoBuild($parser);
+		$helper->parse($_FILES['csv'], $_POST['order']);
+		$tplData['parserInfo'] = $helper->infoBuild();
 	}
 	
 	// get
