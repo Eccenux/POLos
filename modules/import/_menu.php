@@ -6,4 +6,5 @@
 	
 	$pv_menuItem->addSubItem('profile','Profile');
 	$pv_menuItem->addSubItem('personal','Osoby');
+	$pv_menuItem->addSubItem('summary','Podsumowanie');
 ?>
