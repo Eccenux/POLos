@@ -76,6 +76,14 @@ body
 	padding:1em;
 }
 
+/* force clear main content */
+#content:after
+{
+	content:' ';
+	display: block;
+	clear: both;
+}
+
 /* menu */
 #menu
 {
