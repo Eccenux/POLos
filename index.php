@@ -23,6 +23,10 @@
 	require_once './inc/dirHelper.php';
 	require_once './inc/visitLogger.php';
 
+	// setup error handling
+	include './inc/fun_error.php';
+	init_myErrorHandler();
+
 	//
 	// Display mode and other params
 	//
