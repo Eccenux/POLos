@@ -7,8 +7,8 @@
 		die("No hacking allowded ;).");
 	}
 	
-	require_once ('./inc/db/profile.php');
-	$dbProfile = new dbProfile();
+	require_once ('./inc/db/personal.php');
+	$dbPersonal = new dbPersonal();
 
 	$tplData = array();
 
@@ -18,56 +18,43 @@
 		//echo "<pre>".var_export($_FILES, true)."</pre>";
 
 		require_once ('CsvParser.php');
-		require_once ('CsvParser.profile.php');
+		require_once ('CsvParser.personal.php');
 		require_once ('ImportHelper.php');
 
 		// parse and save file
-		$helper = new ImportHelper($columnParsers, 'profile');
+		$helper = new ImportHelper($columnParsers, 'personal');
 		$helper->parse($_FILES['csv'], $_POST['order']);
-		$saveStatus = $helper->save(function($record, $rowState, $fileId) use ($dbProfile) {
-			ImportHelper::insRecord($dbProfile, $record, $rowState, $fileId);
+		$saveStatus = $helper->save(function($record, $rowState, $fileId) use ($dbPersonal) {
+			ImportHelper::insRecord($dbPersonal, $record, $rowState, $fileId);
 		});
 		if ($saveStatus) {
 			if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {
-				$dbProfile->pf_delRecords(array('csv_file' => array('!=', $helper->fileId)));
+				$dbPersonal->pf_delRecords(array('csv_file' => array('!=', $helper->fileId)));
 			}
 		}
 		$tplData['parserInfo'] = $helper->infoBuild();
 	}
 	
 	// get
-	$tplData['profile'] = array();
-	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'), array(
+	$tplData['personal'] = array();
+	$dbPersonal->pf_getStatsMany($tplData['personal'], array('total', 'region-counts'), array(
 		'row_state' => 0
 	));
 
 	// define CSV columns
 	$tplData['columns'] = array(
-		null,	// skip
-		array(
-			'column' => 'group_name',
-			'title' => 'Grupa',
-		),
-		array(
-			'column' => 'sex',
-			'title' => 'Płeć',
-		),
-		array(
-			'column' => 'age_min_max',
-			'title' => 'Wiek (zakres)',
-		),
-		array(
-			'column' => 'region',
-			'title' => 'Dzielnica',
-		),
-		null,
-		array(
-			'column' => 'invites_no',
-			'title' => 'Liczba zaproszeń',
-		),
+		array('column' => 'region',		'title' => 'Dzielnica'),
+		array('column' => 'pesel',		'title' => 'PESEL'),
+		array('column' => 'name',		'title' => 'Imię'),
+		array('column' => 'surname',	'title' => 'Nazwisko'),
+		array('column' => 'city',		'title' => 'Miasto'),
+		array('column' => 'street',		'title' => 'Ulica'),
+		array('column' => 'building_no','title' => 'Nr budynku'),
+		array('column' => 'flat_no',	'title' => 'Nr lokalu'),
+		array('column' => 'zip_code',	'title' => 'Kod pocztowy'),
 	);
 
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;
-	$pv_controller->tpl->file = 'controller.import.profile.tpl.php';
+	$pv_controller->tpl->file = 'controller.import.personal.tpl.php';
 ?>

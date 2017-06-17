@@ -1,12 +1,11 @@
 <h2>Import profili</h2>
 
 <h3>Zaimportowane dane</h3>
-<?php if (empty($tplData['profile']['total'][0]['profiles'])) { ?>
+<?php if (empty($tplData['personal']['total'][0]['people'])) { ?>
 <p>Brak</p>
 <?php } else { ?>
 <ul>
-<li>Liczba profili: <?=$tplData['profile']['total'][0]['profiles']?></li>
-<li>Liczba zaproszeń do wylosowania: <?=$tplData['profile']['total'][0]['invites']?></li>
+<li>Liczba osób: <?=$tplData['personal']['total'][0]['people']?></li>
 </ul>
 <?php } ?>
 

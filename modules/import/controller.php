@@ -11,6 +11,9 @@
 		case 'profile':
 			include $pv_controller->moduleDir.'/controller.import.profile.php';
 		break;
+		case 'personal':
+			include $pv_controller->moduleDir.'/controller.import.personal.php';
+		break;
 		default:
 			include $pv_controller->moduleDir.'/controller.summary.php';
 		break;
