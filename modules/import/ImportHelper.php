@@ -92,7 +92,7 @@ class ImportHelper
 		// check for XLS/XLSX/ODT limits
 		$total = $rowsCount['ok'] + $rowsCount['invalid'] + $rowsCount['warning'];
 		$totalSuspicious = "";
-		$total = 65556;
+		// $total = 65536; // test
 		switch (self::isSuspicious($total)) {
 			case "yes":
 				$totalSuspicious =
@@ -136,8 +136,16 @@ class ImportHelper
 			break;
 			//CsvParserState::ROW_WARNINGS || case CsvParserState::ROW_ERRORS
 			default:
-				$html .= "<div class='message warning'>"
+                if ($rowsCount['warning'] + $rowsCount['invalid'] <= 2) {
+					$html .= "<div class='message note'>"
+						. "Nie wszystkie dane udało się przetworzyć, ale wygląda na to, że to tylko nagłówki."
+					;
+				} else {
+					$html .= "<div class='message warning'>"
 						. "Nie wszystkie dane udało się przetworzyć."
+					;
+				}
+				$html .= ""
 						. "<ul>"
 							. "<li>Przetworzone dane: {$rowsCount['ok']}."
 							. (empty($rowsCount['invalid']) ? '' : "<li>Niepoprawne dane: {$rowsCount['invalid']}.")
