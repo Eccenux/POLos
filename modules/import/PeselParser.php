@@ -13,7 +13,7 @@ class PeselParser
 	 * @return boolean true if OK.
 	 */
 	static function validatePesel($pesel) {
-		if (strlen($pesel) !== 11 || preg_match('/^\d+$/', $pesel) === false) {
+		if (strlen($pesel) !== 11 || !preg_match('/^\d+$/', $pesel)) {
 			return false;
 		}
 		$x = 9*$pesel[0]
