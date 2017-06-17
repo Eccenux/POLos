@@ -735,10 +735,11 @@ abstract class dbBaseClass
 	 * @note For now a single table is supported.
 	 *
 	 * @param array $pv_record Record to be inserted.
+	 * @param bool $pv_returnId If true then ID will be returned uppon success.
 	 * @return int 0 upon error
 	 * @throws Exception If \a pv_tableName was not set.
 	 */
-	public function pf_insRecord($pv_record)
+	public function pf_insRecord($pv_record, $pv_returnId = false)
 	{
 		if (empty($this->pv_tableName))
 		{
@@ -767,6 +768,9 @@ abstract class dbBaseClass
 			return 0;
 		}
 
+		if ($pv_returnId) {
+			return $this->pf_getLastInsertId();
+		}
 		return 1;	// OK :)
 	}
 
