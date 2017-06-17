@@ -32,7 +32,9 @@
 	
 	// get
 	$tplData['profile'] = array();
-	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'));
+	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'), array(
+		'row_state' => 0
+	));
 
 	// define CSV columns
 	$tplData['columns'] = array(

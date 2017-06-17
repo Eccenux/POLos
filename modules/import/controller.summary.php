@@ -15,9 +15,13 @@
 	// get
 	$tplData = array();
 	$tplData['profile'] = array();
-	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'));
+	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'), array(
+		'row_state' => 0
+	));
 	$tplData['personal'] = array();
-	$dbPersonal->pf_getStatsMany($tplData['personal'], array('total', 'region-counts'));
+	$dbPersonal->pf_getStatsMany($tplData['personal'], array('total', 'region-counts'), array(
+		'row_state' => 0
+	));
 
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;
