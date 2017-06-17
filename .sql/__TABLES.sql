@@ -16,6 +16,7 @@ CREATE TABLE profile (
     `age_max`     int,
     `region`      varchar(200),
     
+	`row_state`   int,
     `csv_row`     text,
     `csv_file`    int UNSIGNED,
     
@@ -47,6 +48,7 @@ CREATE TABLE personal (
     `flat_no`       varchar(10),
     `zip_code`      varchar(10),
     
+	`row_state`     int,
     `csv_row`       text,
     `csv_file`      int UNSIGNED,
     

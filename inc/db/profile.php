@@ -39,6 +39,7 @@ class dbProfile extends dbBaseClass
 		'age_max' => 'age_max',
 		'region' => 'region',
 
+		'row_state' => 'row_state',
 		'csv_row' => 'csv_row',
 		'csv_file' => 'csv_file',
 	);
@@ -71,7 +72,7 @@ class dbProfile extends dbBaseClass
 	 *
 	 * @var array
 	 */
-	protected $pv_intColumnsByAlias = array('age_min', 'age_max');
+	protected $pv_intColumnsByAlias = array('invites_no', 'age_min', 'age_max', 'row_state', 'csv_file');
 
 	/**
 	 * Alised names of columns that are to be excluded when inserting records.
