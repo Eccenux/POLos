@@ -173,3 +173,24 @@ body #ticks li:first-child:before
 {
 	vertical-align: bottom;
 }
+
+/* messages */
+
+.message,.extra-info {
+	border: 1px solid #1c94c4;
+	background-color: whitesmoke;
+	border-radius: 1em;
+	padding: 1em;
+	margin: .5em 0 1em;
+}
+.message.error {
+	border-color: black;
+	background-color: coral;
+}
+.message.warning {
+	border-color: black;
+	background-color: gold;
+}
+.extra-info {
+
+}

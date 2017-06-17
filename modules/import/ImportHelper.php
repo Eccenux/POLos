@@ -51,4 +51,63 @@ class ImportHelper
 		return $parser;
 	}
 
+	/**
+	 * Information about parsing.
+	 *
+	 * @param CsvParser $parser The parser object.
+	 * @return
+	 */
+	function infoBuild($parser) {
+		$html = "";
+
+		// count rows
+		$rowsCount = array(
+			'ok' => !isset($parser->rows[CsvRowState::OK]) ? 0 : count($parser->rows[CsvRowState::OK]),
+			'invalid' => !isset($parser->rows[CsvRowState::INVALID]) ? 0 : count($parser->rows[CsvRowState::INVALID]),
+			'warning' => !isset($parser->rows[CsvRowState::WARNING]) ? 0 : count($parser->rows[CsvRowState::WARNING]),
+		);
+
+		// state info
+		switch ($parser->state) {
+			case CsvParserState::GENERAL_ERROR:
+				$html .= 
+					"<div class='message error'>"
+						. "Błąd! Przetwarzanie pliku nie powiodło się. "
+						. "Dane nie zostały zapisane."
+					. "</div>"
+				;
+			break;
+			case CsvParserState::OK:
+				$html .= "<div class='message success'>OK! Wszystkie dane zostały pomyślnie przetworzone.</div>";
+			break;
+			//CsvParserState::ROW_WARNINGS || case CsvParserState::ROW_ERRORS
+			default:
+				$html .= "<div class='message warning'>"
+						. "Nie wszystkie dane udało się przetworzyć."
+						. "<ul>"
+							. "<li>Przetworzone dane: {$rowsCount['ok']}."
+							. (empty($rowsCount['invalid']) ? '' : "<li>Niepoprawne dane: {$rowsCount['invalid']}.")
+							. (empty($rowsCount['warning']) ? '' : "<li>Częściowo niepoprawne dane: {$rowsCount['warning']}.")
+						. "</ul>"
+						. "Dane zostały zaimportowane."
+					. "</div>"
+				;
+			break;
+		}
+
+		// display parser messages
+		if (!empty($parser->messages)) {
+			$html .= "<div class='extra-info'>";
+			foreach ($parser->messages as $message)
+			{
+				$html .= "<div>";
+				$html .= htmlspecialchars($message);
+				$html .= "</div>";
+			}
+			$html .= "</div>";
+		}
+
+		return $html;
+	}
+
 }
