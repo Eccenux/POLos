@@ -9,11 +9,14 @@
 <h2>Dopasowanie profili</h2>
 <div>
 <?php
-	/*
-	ModuleTemplate::printArray($tplData['profile']['region-invites'], array(
+	ModuleTemplate::printArray($tplData['profile-persons'], array(
+		'group_name' => 'grupa',
+		'sex' => 'płeć',
+		'age_min' => 'wiek od',
+		'age_max' => 'wiek do',
 		'region' => 'dzielnica',
-		'invites' => 'l. zaproszeń',
+		'invites_no' => 'l. zaproszeń',
+		'persons' => 'l. osób',
 	));
-	*/
 ?>
 </div>

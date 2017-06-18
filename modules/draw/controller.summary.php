@@ -11,6 +11,7 @@
 	$tplData = array();
 	$tplData['drawPossible'] = $drawPossible;
 	$tplData['drawValidationMessage'] = $drawValidationMessage;
+	$dbProfile->pf_getStats($tplData['profile-persons'], 'profile-persons');
 
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;

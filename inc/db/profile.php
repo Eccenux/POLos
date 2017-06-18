@@ -63,6 +63,27 @@ class dbProfile extends dbBaseClass
 			WHERE {pv_constraints|(1)}
 			GROUP BY region
 			ORDER BY 1 DESC',
+		// liczby osób dopasowanych do profili
+		'profile-persons' => '
+			SELECT
+				i.group_name, i.sex, i.age_min, i.age_max, i.region, i.invites_no,
+				count(p.id) as persons
+			FROM profile i, personal p
+			WHERE
+				i.row_state = 0 AND p.row_state = 0
+				AND
+				p.age >= i.age_min
+				AND
+				(i.age_max IS NULL OR p.age <= i.age_max)
+				AND
+				p.sex = LEFT(i.sex, 1)
+				AND
+				p.region = i.region
+				AND
+				{pv_constraints|(1)}
+			GROUP BY i.id
+			ORDER BY i.id DESC
+		',
 	);
 
 	/**
