@@ -1,0 +1,13 @@
+.draw-fair td {
+	font-style: italic;
+	background-color: #eeffee;
+}
+.draw-possible td {
+	background-color: #ffffee;
+}
+.draw-minimum td {
+	background-color: #eeeeee;
+}
+.draw-not-possible td {
+	background-color: #ffeeee;
+}
