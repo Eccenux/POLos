@@ -8,15 +8,12 @@
 	//
 	switch ($pv_controller->action)
 	{
-		case 'profile':
-			include $pv_controller->moduleDir.'/controller.import.profile.php';
-		break;
-		case 'personal':
-			include $pv_controller->moduleDir.'/controller.import.personal.php';
-		break;
 		default:
 			include $pv_controller->moduleDir.'/controller.summary.php';
 		break;
+		//case 'draw':
+		//	include $pv_controller->moduleDir.'/controller.draw.php';
+		//break;
 	}
 
 	//
