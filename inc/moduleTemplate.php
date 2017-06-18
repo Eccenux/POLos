@@ -156,6 +156,15 @@ class ModuleTemplate
 		return $code;
 	}
 
+	/**
+	 * Formats number for display.
+	 * @param float $number
+	 * @param int $decimals
+	 */
+	public static function formatNumber($number, $decimals = 0)
+	{
+		return number_format($number, $decimals, ",", " ");
+	}
 
 	/**
 	 * Prints typical key->value array.

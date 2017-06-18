@@ -8,6 +8,12 @@
 	<div class="message <?=($tplData['drawPossible'] ? 'warning' : 'error')?>">
 	<?=$tplData['drawValidationMessage']?>
 	</div>
+<?php } else { ?>
+	<ul>
+		<li>Liczba profili: <?=ModuleTemplate::formatNumber($tplData['profile-total'][0]['profiles'])?></li>
+		<li>Liczba zaproszeń: <?=ModuleTemplate::formatNumber($tplData['profile-total'][0]['invites'])?></li>
+		<li>Liczba osób: <?=ModuleTemplate::formatNumber($tplData['personal-total'][0]['people'])?></li>
+	</ul>
 <?php } ?>
 
 <h2>Dopasowanie profili</h2>

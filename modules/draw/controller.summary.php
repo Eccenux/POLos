@@ -13,6 +13,9 @@
 	$tplData['drawValidationMessage'] = $drawValidationMessage;
 	$dbProfile->pf_getStats($tplData['profile-persons'], 'profile-persons');
 
+	$tplData['profile-total'] = $total['profile'];
+	$tplData['personal-total'] = $total['personal'];
+
 	foreach ($tplData['profile-persons'] as &$row)
 	{
 		$percentage = $row['persons'] / $row['invites_no'] * 100;
