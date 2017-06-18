@@ -7,21 +7,10 @@
 		die("No hacking allowded ;).");
 	}
 	
-	require_once ('./inc/db/profile.php');
-	$dbProfile = new dbProfile();
-	require_once ('./inc/db/personal.php');
-	$dbPersonal = new dbPersonal();
-	
 	// get
 	$tplData = array();
-	$tplData['profile'] = array();
-	$dbProfile->pf_getStatsMany($tplData['profile'], array('total', 'region-invites'), array(
-		'row_state' => 0
-	));
-	$tplData['personal'] = array();
-	$dbPersonal->pf_getStatsMany($tplData['personal'], array('total', 'region-counts'), array(
-		'row_state' => 0
-	));
+	$tplData['drawPossible'] = $drawPossible;
+	$tplData['drawValidationMessage'] = $drawValidationMessage;
 
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;

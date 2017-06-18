@@ -1,33 +1,19 @@
-<h2>Podsumowanie</h2>
+<h2>Podstawowa weryfikacja</h2>
 
-<ul>
-<li>Liczba profili: <?=$tplData['profile']['total'][0]['profiles']?></li>
-<li>Liczba zaproszeń do wylosowania: <?=$tplData['profile']['total'][0]['invites']?></li>
-<li>Liczba osób w rejestrze wyborców: <?=$tplData['personal']['total'][0]['people']?></li>
-</ul>
-
-<?php if ($tplData['profile']['total'][0]['invites'] > $tplData['personal']['total'][0]['people']) { ?>
-<div class="message warning">
-Uwaga! Liczba zaproszeń jest większa niż liczba przesłanych danych osobowych.
+<?php if (!empty($tplData['drawValidationMessage'])) { ?>
+<div class="message <?=($tplData['drawPossible'] ? 'warning' : 'error')?>">
+<?=$tplData['drawValidationMessage']?>
 </div>
 <?php } ?>
 
-<h2>Podział na dzielnice</h2>
-<div style='float:left;margin-right:1em'>
-<h3>Profile zaproszeniowe</h3>
+<h2>Dopasowanie profili</h2>
+<div>
 <?php
+	/*
 	ModuleTemplate::printArray($tplData['profile']['region-invites'], array(
 		'region' => 'dzielnica',
 		'invites' => 'l. zaproszeń',
 	));
-?>
-</div>
-<div style='float:left;margin-right:1em'>
-<h3>Dane osobowe (wyborcy)</h3>
-<?php
-	ModuleTemplate::printArray($tplData['personal']['region-counts'], array(
-		'region' => 'dzielnica',
-		'people' => 'l. osób',
-	));
+	*/
 ?>
 </div>
