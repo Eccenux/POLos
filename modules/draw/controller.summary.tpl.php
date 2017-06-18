@@ -7,6 +7,11 @@
 <?php } ?>
 
 <h2>Dopasowanie profili</h2>
+<?php if (!empty($tplData['drawMatchingMessage'])) { ?>
+<div class="message warning">
+<?=$tplData['drawMatchingMessage']?>
+</div>
+<?php } ?>
 <div>
 <?php
 	ModuleTemplate::printArray($tplData['profile-persons'], array(
