@@ -7,7 +7,9 @@
 </ul>
 
 <?php if ($tplData['profile']['total'][0]['invites'] > $tplData['personal']['total'][0]['people']) { ?>
+<div class="message warning">
 Uwaga! Liczba zaproszeń jest mniejsza niż liczba przesłanych danych osobowych.
+</div>
 <?php } ?>
 
 <h2>Podział na dzielnice</h2>
