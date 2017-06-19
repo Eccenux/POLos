@@ -41,9 +41,13 @@
 		default:
 			include $pv_controller->moduleDir.'/controller.summary.php';
 		break;
-		//case 'draw':
-		//	include $pv_controller->moduleDir.'/controller.draw.php';
-		//break;
+		case 'draw':
+			if ($drawPossible) {
+				include $pv_controller->moduleDir.'/controller.draw.php';
+			} else {
+				$pv_controller->tpl->message = $drawValidationMessage;
+			}
+		break;
 	}
 
 	//
