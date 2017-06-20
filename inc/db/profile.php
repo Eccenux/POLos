@@ -63,6 +63,15 @@ class dbProfile extends dbBaseClass
 			WHERE {pv_constraints|(1)}
 			GROUP BY region
 			ORDER BY 1 DESC',
+		// scalanie profili
+		'profile-duplicates' => "
+			SELECT
+				sex, age_min, age_max, region, sum(invites_no) as invites_no,
+				GROUP_CONCAT(DISTINCT id SEPARATOR ',') AS ids
+			FROM profile
+			GROUP BY sex, age_min, age_max, region
+			HAVING count(id) > 1
+		",
 		// liczby osób dopasowanych do profili
 		'profile-persons' => '
 			SELECT
@@ -93,7 +102,7 @@ class dbProfile extends dbBaseClass
 	 *
 	 * @var array
 	 */
-	protected $pv_intColumnsByAlias = array('invites_no', 'age_min', 'age_max', 'row_state', 'csv_file');
+	protected $pv_intColumnsByAlias = array('id', 'invites_no', 'age_min', 'age_max', 'row_state', 'csv_file');
 
 	/**
 	 * Alised names of columns that are to be excluded when inserting records.

@@ -33,6 +33,36 @@
 			}
 		}
 		$tplData['parserInfo'] = $helper->infoBuild();
+
+		// merge profile duplicates
+		$duplicates = array();
+		$dbProfile->pf_getStats($duplicates, 'profile-duplicates', array(
+			'row_state' => 0
+		));
+		if (!empty($duplicates)) {
+			$tplData['parserInfo'] .= "<div class='message note'>"
+				. "Wykryto duplikaty profili. Profile zostały połączone wg kryteriów: Płeć, Wiek, Dzielnica. Dla scalonego profilu liczba zaproszeń została zsumowana."
+				. "</div>"
+			;
+			foreach($duplicates as $duplicate) {
+				$ids = explode(",", $duplicate['ids']);
+				$merge_id = array_pop($ids);
+				// set invites for merged row
+				$dbProfile->pf_setRecords(
+					array(
+						'invites_no' => $duplicate['invites_no']
+					),
+					array('id' => $merge_id)
+				);
+				// set other as invalid
+				$dbProfile->pf_setRecords(
+					array(
+						'row_state' => CsvRowState::INVALID
+					),
+					array('id' => array('IN', $ids))
+				);
+			}
+		}
 	}
 	
 	// get
