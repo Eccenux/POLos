@@ -6,9 +6,30 @@
 	{
 		die("No hacking allowded ;).");
 	}
+	/* @var $dbProfile dbProfile */
+	/* @var $dbPersonal dbPersonal */
 	
 	// get
 	$tplData = array();
+
+	$stage = empty($_GET['stage']) ? 0 : intval($_GET['stage']);
+
+	switch ($stage) {
+		// confirm
+		case 0:
+			$tplData['profile-total'] = $total['profile'];
+			$tplData['personal-total'] = $total['personal'];
+			$pv_controller->tpl->file = 'controller.draw0_confirm.tpl.php';
+		break;
+		// reset and match persons to profiles
+		case 1:
+			$pv_controller->tpl->file = 'controller.draw1_match.tpl.php';
+		break;
+		// prepare draw lists
+		case 2:
+			$pv_controller->tpl->file = 'controller.draw2_draw.tpl.php';
+		break;
+	}
 
 	/*
 	$dbProfile->pf_getStats($tplData['profile-persons'], 'profile-persons');
@@ -27,5 +48,4 @@
 
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;
-	$pv_controller->tpl->file = 'controller.summary.tpl.php';
 ?>

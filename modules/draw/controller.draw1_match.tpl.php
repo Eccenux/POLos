@@ -1,22 +1,8 @@
-<h2>Podstawowa weryfikacja</h2>
-
 <style>
 	<?php include 'validation.css'; ?>
 </style>
 
-<?php if (!empty($tplData['drawValidationMessage'])) { ?>
-	<div class="message <?=($tplData['drawPossible'] ? 'warning' : 'error')?>">
-	<?=$tplData['drawValidationMessage']?>
-	</div>
-<?php } else { ?>
-	<ul>
-		<li>Liczba profili: <?=ModuleTemplate::formatNumber($tplData['profile-total'][0]['profiles'])?></li>
-		<li>Liczba zaproszeń: <?=ModuleTemplate::formatNumber($tplData['profile-total'][0]['invites'])?></li>
-		<li>Liczba osób: <?=ModuleTemplate::formatNumber($tplData['personal-total'][0]['people'])?></li>
-	</ul>
-<?php } ?>
-
-<h2>Wstępne dopasowanie profili</h2>
+<h2>Dopasowanie profili</h2>
 <?php if (!empty($tplData['drawMatchingMessage'])) { ?>
 <div class="message warning">
 <?=$tplData['drawMatchingMessage']?>
@@ -45,3 +31,12 @@
 		<tr class="draw-not-possible">	<td>Za mało osób</td></tr>
 	</table>
 </div>
+<br clear="all">
+<h2>Potwierdzenie</h2>
+<p>Po przejściu dalej wykonane zostaną losowania osób do zaproszenia. Czy możemy kontynuować?</p>
+<form action="" method="GET">
+	<input type="hidden" name="mod" value="draw">
+	<input type="hidden" name="a" value="draw">
+	<input type="hidden" name="stage" value="2">
+	<input type="submit" name="confirm" value="Tak, przejdź do losowania">
+</form>
