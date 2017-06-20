@@ -324,6 +324,10 @@ abstract class dbBaseClass
 					{
 						$pv_ret_arr[] = $pv_column.' '.$pv_sign.' \''.$pv_val.'\'';
 					}
+					elseif (is_null($pv_val))
+					{
+						$pv_ret_arr[] = $pv_column.' '.$pv_sign.' NULL';
+					}
 					else
 					{
 						$pv_ret_arr[] = $pv_column.' '.$pv_sign.' '.$pv_val.'';
@@ -473,7 +477,7 @@ abstract class dbBaseClass
 	 */
 	protected function pf_prepareValue ($pv_alias, $pv_val)
 	{
-		if (!is_integer($pv_val))
+		if (!is_integer($pv_val) && !is_null($pv_val))
 		{
 			if (!empty($this->pv_intColumnsByAlias) && array_search($pv_alias, $this->pv_intColumnsByAlias)!==false)
 			{
