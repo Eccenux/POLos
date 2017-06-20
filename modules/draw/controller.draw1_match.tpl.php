@@ -10,7 +10,7 @@
 <?php } ?>
 <p>Poniżej wyświetlone są wszystkie profile. Łącznie z tymi, dla których nie znaleziono dopasowań.
 
-<p>Losowania zostaną przeprowadzone jeśli liczna osób jest większa niż liczba zaproszeń (jest więcej niż 100%). W pozostałych wypadkach wszystkie pasujące osoby zostaną wybrane.
+<p>Losowania zostaną przeprowadzone jeśli liczba osób jest większa niż liczba zaproszeń (jest więcej niż 100%). W pozostałych wypadkach wszystkie pasujące osoby zostaną wybrane.
 
 <p>Przejrzyj tabelę i potwierdź przejście dalej.
 <div style="float:left">
