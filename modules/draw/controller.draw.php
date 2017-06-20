@@ -39,24 +39,38 @@
 		break;
 		// prepare draw lists
 		case 2:
+			// mark take-all as draw_id=0
+			$profiles = array();
+			$dbProfile->pf_getStats($profiles, 'profile-persons-matched');
+			$tplData['profile-counts']['total'] = count($profiles);
+			$tplData['profile-counts']['take-all'] = 0;
+			$tplData['profile-counts']['to-draw'] = 0;
+			$tplData['profile-persons-counts']['total'] = 0;
+			$tplData['profile-persons-counts']['take-all'] = 0;
+			$tplData['profile-persons-counts']['to-draw'] = 0;
+			foreach ($profiles as &$profile)
+			{
+				$tplData['profile-persons-counts']['total'] += $profile['persons'];
+				if ($profile['persons'] <= $profile['invites_no']) {
+					$tplData['profile-counts']['take-all']++;
+					$tplData['profile-persons-counts']['take-all'] += $profile['persons'];
+					$dbPersonal->pf_setRecords(
+						array(
+							'draw_id' => 0
+						),
+						array(
+							'profile_id' => $profile['id']
+						)
+					);
+				} else {
+					$tplData['profile-counts']['to-draw']++;
+					$tplData['profile-persons-counts']['to-draw'] += $profile['persons'];
+				}
+			}
+
 			$pv_controller->tpl->file = 'controller.draw2_draw.tpl.php';
 		break;
 	}
-
-	/*
-	$dbProfile->pf_getStats($tplData['profile-persons'], 'profile-persons');
-	$profilesToDraw = array();
-	$profilesToTakeAll = array();
-	foreach ($tplData['profile-persons'] as &$row)
-	{
-		$percentage = $row['persons'] / $row['invites_no'] * 100;
-		if ($percentage > 100) {
-			$profilesToDraw[] = $row;
-		} else if ($row['persons'] > 0) {
-			$profilesToTakeAll[] = $row;
-		}
-	}
-	*/
 
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;
