@@ -48,6 +48,7 @@
 			$tplData['profile-persons-counts']['total'] = 0;
 			$tplData['profile-persons-counts']['take-all'] = 0;
 			$tplData['profile-persons-counts']['to-draw'] = 0;
+			$tplData['profiles']['to-draw'] = array();
 			foreach ($profiles as &$profile)
 			{
 				$tplData['profile-persons-counts']['total'] += $profile['persons'];
@@ -65,6 +66,7 @@
 				} else {
 					$tplData['profile-counts']['to-draw']++;
 					$tplData['profile-persons-counts']['to-draw'] += $profile['persons'];
+					$tplData['profiles']['to-draw'][$profile['id']] = $profile;
 				}
 			}
 			// get list for draws

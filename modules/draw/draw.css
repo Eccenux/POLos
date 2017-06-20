@@ -2,11 +2,13 @@
 	display: flex;
 	flex-wrap: wrap;
 }
+#draw-lists section {
+	margin: 1em;
+}
 #draw-lists ol {
 	height: 20em;
 	overflow-y: scroll;
 	border: 1px solid lightblue;
-	margin: 1em;
 }
 #draw-lists li tt {
 	color: #ccc;
