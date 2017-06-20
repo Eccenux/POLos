@@ -82,17 +82,18 @@ CREATE TABLE file (
 );
 
 /**
-    Historia działań/zdarzeń.
+    Draw.
 */
-DROP TABLE IF EXISTS event_history;
-CREATE TABLE event_history (
+DROP TABLE IF EXISTS draw;
+CREATE TABLE draw (
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `uuid`          varchar(50),
-    `dt_create`     DATETIME,
-    `dt_change`     DATETIME,
-    `history_data`  LONGTEXT,
+    `dt_create`   DATETIME,
+    `dt_change`   DATETIME,
+
+    `profile_id`    int UNSIGNED,
+    `verification`  LONGTEXT,
 
     PRIMARY KEY (id),
-    KEY (uuid)
+    KEY (profile_id)
 );

@@ -60,6 +60,15 @@ class dbFile extends dbBaseClass
 	);
 
 	/**
+	 * Aliased names of columns that are to be parsed as integers.
+	 *
+	 * @note All other columns are parsed as string/binary so this is purely optional.
+	 *
+	 * @var array
+	 */
+	protected $pv_intColumnsByAlias = array('id');
+
+	/**
 	 * Alised names of columns that are to be excluded when inserting records.
 	 *
 	 * @note For tables that have automatically incremented ids you should add the name of this id column here.

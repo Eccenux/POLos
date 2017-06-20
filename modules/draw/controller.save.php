@@ -19,11 +19,21 @@
 		$pv_controller->tpl->setResponseCode(400);
 		$pv_controller->tpl->message = 'Brak wymaganych danych!';
 	}
+	// save
 	else
 	{
-		if ($dbPersonal->pf_setRecords(array('profile_id' => $profile_id), array('id' => array('IN', $person_ids))))
+		// insert draw data
+		require_once ('./inc/db/draw.php');
+		$dbDraw = new dbDraw();
+		$drawId = $dbDraw->pf_insRecord(array(
+			'profile_id' => $profile_id,
+			'verification' => $verification,
+		), true);
+
+		// update records of people
+		if ($dbPersonal->pf_setRecords(array('profile_id' => $profile_id, 'draw_id' => $drawId), array('id' => array('IN', $person_ids))))
 		{
-			$pv_controller->tpl->message = "OK ($profile_id, $person_ids)";
+			$pv_controller->tpl->message = "OK ($drawId, $profile_id, $person_ids)";
 		}
 		else
 		{

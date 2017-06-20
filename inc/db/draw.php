@@ -3,23 +3,23 @@ $currentRoot = dirname(__FILE__);
 require_once $currentRoot.'/dbbase.class.php';
 
 /**
- * Event history data class
+ * Draw history data class
  *
  * @note Connection need to be established before methods of this class are used.
  */
-class dbEventHistory extends dbBaseClass
+class dbDraw extends dbBaseClass
 {
 	/**
 	 * @see dbBaseClass
 	 * @var string
 	 */
-	protected $pv_tableName = 'event_history';
+	protected $pv_tableName = 'draw';
 
 	/**
 	 * @see dbBaseClass
 	 * @var string
 	 */
-	protected $pv_defaultOrderSql = 'ORDER BY uuid, dt_change DESC';
+	protected $pv_defaultOrderSql = 'ORDER BY dt_change DESC';
 
 	/**
 	 * @see dbBaseClass
@@ -27,27 +27,22 @@ class dbEventHistory extends dbBaseClass
 	 */
 	protected $pv_aliasNames2colNames = array (
 		'id' => 'id',
-		'uuid' => 'uuid',
+
 		'dt_create' => 'dt_create',
 		'dt_change' => 'dt_change',
-		'history_data' => 'history_data',
+
+		'profile_id' => 'profile_id',
+		'verification' => 'verification',
 	);
 
 	/**
-	 * "Szablony" SQL do statystyk/szybkich zapytań.
+	 * Aliased names of columns that are to be parsed as integers.
 	 *
-	 * @see dbBaseClass->pf_getStats
+	 * @note All other columns are parsed as string/binary so this is purely optional.
+	 *
 	 * @var array
 	 */
-	protected $pv_sqlStatsTpls = array (
-		// ostatnie dane pasujące do kryteriów
-		'last' =>
-			'SELECT dt_change, uuid, history_data
-			FROM event_history
-			WHERE {pv_constraints|(1)}
-			ORDER BY 1 DESC
-			LIMIT 1',
-	);
+	protected $pv_intColumnsByAlias = array('id', 'profile_id');
 
 	/**
 	 * Alised names of columns that are to be excluded when inserting records.
