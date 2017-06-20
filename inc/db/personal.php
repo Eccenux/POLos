@@ -48,6 +48,10 @@ class dbPersonal extends dbBaseClass
 		'row_state' => 'row_state',
 		'csv_row' => 'csv_row',
 		'csv_file' => 'csv_file',
+		
+		'profile_id' => 'profile_id',
+		'draw_id' => 'draw_id',
+		'user_code' => 'user_code',
 	);
 
 	/**
@@ -78,7 +82,7 @@ class dbPersonal extends dbBaseClass
 	 *
 	 * @var array
 	 */
-	protected $pv_intColumnsByAlias = array('age', 'row_state', 'csv_file');
+	protected $pv_intColumnsByAlias = array('age', 'row_state', 'csv_file', 'profile_id', 'draw_id');
 
 	/**
 	 * Alised names of columns that are to be excluded when inserting records.

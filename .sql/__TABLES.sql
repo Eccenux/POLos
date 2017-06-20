@@ -51,9 +51,15 @@ CREATE TABLE personal (
 	`row_state`   int DEFAULT 0,	-- 0 = OK
     `csv_row`     text,
     `csv_file`    int UNSIGNED,
+
+    `profile_id`  int UNSIGNED,
+    `draw_id`     int UNSIGNED,
+    `user_code`   varchar(20),
     
     PRIMARY KEY (id),
-    KEY (csv_file)
+    KEY (csv_file),
+    KEY (profile_id),
+    KEY (draw_id)
 );
 
 /**
