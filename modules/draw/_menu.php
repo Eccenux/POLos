@@ -6,4 +6,5 @@
 	
 	$pv_menuItem->addSubItem('summary','Weryfikacja');
 	$pv_menuItem->addSubItem('draw','Losowanie');
+	$pv_menuItem->addSubItem('results','Wyniki');
 ?>

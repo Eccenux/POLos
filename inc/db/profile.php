@@ -106,6 +106,23 @@ class dbProfile extends dbBaseClass
 			GROUP BY i.id
 			ORDER BY i.id DESC
 		',
+		// liczby osób dopasowanych do profili
+		'profiles-results' => '
+			SELECT
+				i.group_name, i.sex, i.age_min, i.age_max, i.region, i.invites_no,
+				d.dt_create as draw_time, d.verification
+			FROM profile i LEFT JOIN draw d ON i.id=profile_id
+			WHERE
+				i.row_state = 0
+				AND d.id =
+				(
+				   SELECT MAX(dsub.id)
+				   FROM draw dsub
+				   WHERE dsub.profile_id = i.id
+				)
+			GROUP BY i.id
+			ORDER BY i.id DESC, d.id DESC
+',
 	);
 
 	/**

@@ -53,6 +53,9 @@
 		case 'save':
 			include $pv_controller->moduleDir.'/controller.save.php';
 		break;
+		case 'results':
+			include $pv_controller->moduleDir.'/controller.results.php';
+		break;
 	}
 
 	//
