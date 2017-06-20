@@ -23,6 +23,7 @@
 </div>
 
 <input type="button" id="draw-starter" value="Losuj">
+<a href="<?=MainMenu::getModuleUrl('draw', 'results')?>" id="draw-continue">Wyniki</a>
 <script>
 	<?php include 'draw.js'; ?>
 </script>

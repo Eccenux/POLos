@@ -1,5 +1,6 @@
 var drawTestMode = $('#draw-test-mode').is(":visible");
 
+$('#draw-continue').button().button('disable');
 $('#draw-starter').click(function(){
 	$('#draw-starter').button('disable');
 	drawStart();
@@ -92,6 +93,8 @@ function drawDone(drawErrors, total) {
 		alert(
 			'Wszystkie losowania ('+total+') zostały zakończone pomyślnie.'
 		);
+		// can continue
+		$('#draw-continue').button('enable');
 	}
 }
 
