@@ -31,6 +31,10 @@
 			foreach ($profiles as &$profile) {
 				$dbPersonal->setProfile($profile);
 			}
+			// get stats
+			$dbProfile->pf_getStats($tplData['profile-persons'], 'profile-persons-matched');
+			DrawHelper::prepareProfilePerson($tplData['profile-persons']);
+			// tpl
 			$pv_controller->tpl->file = 'controller.draw1_match.tpl.php';
 		break;
 		// prepare draw lists

@@ -117,7 +117,7 @@ class dbPersonal extends dbBaseClass
 	}
 
 	/**
-	 *
+	 * Set/match profile to people.
 	 * @param array $profile
 	 * @return int
 	 */

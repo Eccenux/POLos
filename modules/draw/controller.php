@@ -8,6 +8,8 @@
 	require_once ('./inc/db/personal.php');
 	$dbPersonal = new dbPersonal();
 
+	require_once ('DrawHelper.php');
+
 	// get
 	$total = array();
 	$total['profile'] = array();

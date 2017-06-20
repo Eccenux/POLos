@@ -72,7 +72,7 @@ class dbProfile extends dbBaseClass
 			GROUP BY sex, age_min, age_max, region
 			HAVING count(id) > 1
 		",
-		// liczby osób dopasowanych do profili
+		// liczby osób dopasowanych do profili -- wstępne dopasowanie
 		'profile-persons' => '
 			SELECT
 				i.group_name, i.sex, i.age_min, i.age_max, i.region, i.invites_no,
@@ -88,6 +88,19 @@ class dbProfile extends dbBaseClass
 				p.sex = LEFT(i.sex, 1)
 				AND
 				p.region = i.region
+				AND
+				{pv_constraints|(1)}
+			GROUP BY i.id
+			ORDER BY i.id DESC
+		',
+		// liczby osób dopasowanych do profili
+		'profile-persons-matched' => '
+			SELECT
+				i.group_name, i.sex, i.age_min, i.age_max, i.region, i.invites_no,
+				count(p.id) as persons
+			FROM profile i LEFT JOIN personal p ON i.id=profile_id
+			WHERE
+				i.row_state = 0
 				AND
 				{pv_constraints|(1)}
 			GROUP BY i.id
