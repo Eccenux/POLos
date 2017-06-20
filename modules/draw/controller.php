@@ -45,7 +45,7 @@
 			if ($drawPossible) {
 				include $pv_controller->moduleDir.'/controller.draw.php';
 			} else {
-				$pv_controller->tpl->message = $drawValidationMessage;
+				$pv_controller->tpl->message = '<div class="message error">'.$drawValidationMessage.'</div>';
 			}
 		break;
 	}
