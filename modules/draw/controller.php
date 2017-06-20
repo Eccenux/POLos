@@ -50,6 +50,9 @@
 				$pv_controller->tpl->message = '<div class="message error">'.$drawValidationMessage.'</div>';
 			}
 		break;
+		case 'save':
+			include $pv_controller->moduleDir.'/controller.save.php';
+		break;
 	}
 
 	//

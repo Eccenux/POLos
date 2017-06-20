@@ -25,19 +25,55 @@ function drawStart() {
 	});
 	var drawRemaining = drawData.length;
 	var drawErrors = 0;
+	function onResponse() {
+		drawRemaining--;
+		if (drawRemaining <= 0) {
+			drawDone(drawErrors, drawData.length);
+		}
+	}
 	drawMany(drawData, function(drawItem, random, signature) {
-		console.log(drawRemaining, drawItem, random, signature);
-		drawRemaining--;
-		if (drawRemaining <= 0) {
-			drawDone(drawErrors, drawData.length);
-		}
+		//console.log(drawRemaining, drawItem, random, signature);
+		drawSave(drawItem.saveId, random, signature, function(){
+			onResponse();
+		}, function(){
+			drawErrors++;
+			onResponse();
+		});
 	}, function(drawItem) {
-		console.error('draw failed for item: ', drawItem);
-		drawRemaining--;
-		if (drawRemaining <= 0) {
-			drawDone(drawErrors, drawData.length);
-		}
+		console.error('[drawMany] draw failed for item: ', drawItem);
+		drawErrors++;
+		onResponse();
 	});
+}
+
+/**
+ * Save draw results.
+ * @param {Number} saveId
+ * @param {Object} random
+ * @param {String} signature
+ * @param {Function} onSuccess (responseText)
+ * @param {Function} onFail (responseText)
+ */
+function drawSave(saveId, random, signature, onSuccess, onFail) {
+	$.ajax('?mod=draw&a=save&display=raw', {
+		'method':'post',
+		'data':{
+			'profile': saveId,
+			'persons': random.data.join(','),
+			'verification': JSON.stringify({
+				'random' : random,
+				'signature' : signature
+			})
+	}})
+	.done(function(response) {
+		console.log("[drawSave] saved; response: ", response);
+		onSuccess(response);
+	})
+	.fail(function(ajaxCall) {
+		console.error("[drawSave] saving failed; response: ", ajaxCall.responseText);
+		onFail(ajaxCall.responseText);
+	})
+	;
 }
 
 /**
