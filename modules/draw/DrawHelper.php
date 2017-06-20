@@ -38,12 +38,12 @@ class DrawHelper
 	 * E.g. this PESEL:
 	 *	70061614472
 	 * would become:
-	 *	..0616144..
+	 *	...61614...
 	 *
 	 * @param string $pesel
 	 * @return string
 	 */
 	public static function safePesel($pesel) {
-	 return '..'.substr($pesel, 2, 7).'..';
+	 return '...'.substr($pesel, 3, 6).'...';
 	}
 }
