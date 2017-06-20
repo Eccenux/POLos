@@ -31,4 +31,19 @@ class DrawHelper
 			}
 		}
 	}
+
+	/**
+	 * Transform PESEL to be less identifiable.
+	 *
+	 * E.g. this PESEL:
+	 *	70061614472
+	 * would become:
+	 *	..0616144..
+	 *
+	 * @param string $pesel
+	 * @return string
+	 */
+	public static function safePesel($pesel) {
+	 return '..'.substr($pesel, 2, 7).'..';
+	}
 }

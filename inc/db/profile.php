@@ -96,7 +96,7 @@ class dbProfile extends dbBaseClass
 		// liczby osób dopasowanych do profili
 		'profile-persons-matched' => '
 			SELECT
-				i.group_name, i.sex, i.age_min, i.age_max, i.region, i.invites_no,
+				i.id, i.group_name, i.sex, i.age_min, i.age_max, i.region, i.invites_no,
 				count(p.id) as persons
 			FROM profile i LEFT JOIN personal p ON i.id=profile_id
 			WHERE

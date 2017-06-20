@@ -67,6 +67,15 @@
 					$tplData['profile-persons-counts']['to-draw'] += $profile['persons'];
 				}
 			}
+			// get list for draws
+			$tplData['persons-to-draw'] = array();
+			$dbPersonal->pf_getRecords($tplData['persons-to-draw'],
+				array(
+					'draw_id' => array('IS', 'NULL'),
+					'profile_id' => array('IS NOT', 'NULL')
+				),
+				array('id', 'pesel', 'profile_id')
+			);
 
 			$pv_controller->tpl->file = 'controller.draw2_draw.tpl.php';
 		break;

@@ -19,7 +19,7 @@ class dbPersonal extends dbBaseClass
 	 * @see dbBaseClass
 	 * @var string
 	 */
-	protected $pv_defaultOrderSql = 'ORDER BY pesel';
+	protected $pv_defaultOrderSql = 'ORDER BY profile_id, pesel';
 
 	/**
 	 * @see dbBaseClass
