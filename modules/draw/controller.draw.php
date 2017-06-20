@@ -23,6 +23,14 @@
 		break;
 		// reset and match persons to profiles
 		case 1:
+			// reset
+			$dbPersonal->pf_setRecords(array('profile_id' => null, 'draw_id' => null));
+			// match
+			$profiles = array();
+			$dbProfile->pf_getRecords($profiles, array('row_state' => 0));
+			foreach ($profiles as &$profile) {
+				$dbPersonal->setProfile($profile);
+			}
 			$pv_controller->tpl->file = 'controller.draw1_match.tpl.php';
 		break;
 		// prepare draw lists

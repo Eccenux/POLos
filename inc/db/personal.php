@@ -115,6 +115,58 @@ class dbPersonal extends dbBaseClass
 		$now = date('Y-m-d H:i:s');
 		$pv_record['dt_change'] = $now;
 	}
-}
 
-?>
+	/**
+	 *
+	 * @param array $profile
+	 * @return int
+	 */
+	public function setProfile($profile)
+	{
+		$pv_record = array(
+			'profile_id' => $profile['id']
+		);
+
+		//
+		// Pre-preparation
+		//
+		$this->pf_setRecordExtraParse($pv_record);
+
+		//
+		// Prepare
+		//
+		$pv_set_sql = $this->pf_getSetSQL($pv_record);
+
+		//
+		// Execute
+		//
+		$sql = "UPDATE {$this->pv_tableName}
+			$pv_set_sql
+			WHERE
+				profile_id IS NULL
+				AND
+				row_state = 0
+				AND
+				age >= {$profile['age_min']}
+				AND
+				".($profile['age_max']>0 ? "age <= {$profile['age_max']}": '(1)')."
+				AND
+				sex = '".substr($profile['sex'], 0, 1)."'
+				AND
+				region = '{$profile['region']}'
+		"
+		;
+		$pv_affected_rows = $this->pf_runModificationSQL($sql);
+
+		//
+		// Return
+		//
+		if ($pv_affected_rows===false)
+		{
+			$this->msg = 'DB error while updating record(s)!';
+			return 0;
+		}
+
+		return 1;	// OlKul :)
+	}
+}
