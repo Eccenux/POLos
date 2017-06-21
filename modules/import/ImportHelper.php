@@ -73,7 +73,7 @@ class ImportHelper
 				'csv_file' => $fileId,
 				'csv_row' => $record['csv_row'],
 			);
-			$dbClass->pf_insRecord($invalidRecord);
+			return $dbClass->pf_insRecord($invalidRecord);
 		}
 	}
 
@@ -96,7 +96,10 @@ class ImportHelper
 		{
 			foreach ($records as $record)
 			{
-				$insRecord($record, $rowState, $this->fileId);
+				if (!$insRecord($record, $rowState, $this->fileId)) {
+					trigger_error("Error inserting record. Will not continue!");
+					return false;
+				}
 			}
 		}
 		return true;

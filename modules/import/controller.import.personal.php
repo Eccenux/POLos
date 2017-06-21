@@ -28,7 +28,7 @@
 		$helper = new ImportHelper($columnParsers, 'personal');
 		$helper->parse($_FILES['csv'], $_POST['order']);
 		$saveStatus = $helper->save(function($record, $rowState, $fileId) use ($dbPersonal) {
-			ImportHelper::insRecord($dbPersonal, $record, $rowState, $fileId);
+			return ImportHelper::insRecord($dbPersonal, $record, $rowState, $fileId);
 		});
 		if ($saveStatus) {
 			if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {
