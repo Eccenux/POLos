@@ -70,6 +70,8 @@
 					echo sprintf("\n%s: %.4f", $strTickName, $intDurtation);
 				}
 			?>
+			&bull;
+			<a href="sys-test.php" target="_blank">sys-test</a>
 		</div>
 
 		<div id="randomApi-verify-dialog" title="Weryfikacja losowania" style="display: none">
