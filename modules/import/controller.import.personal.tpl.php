@@ -1,4 +1,4 @@
-<h2>Import profili</h2>
+<h2>Import danych osób</h2>
 
 <h3>Zaimportowane dane</h3>
 <?php if (empty($tplData['personal']['total'][0]['people'])) { ?>
