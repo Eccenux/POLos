@@ -911,6 +911,7 @@ abstract class dbBaseClass
 			$pv_where_sql
 			$pv_order_sql"
 		;
+		//trigger_error ($sql, E_USER_NOTICE);
 		$this->pf_getArrayOfRecords($pv_array, $sql);
 
 		//
