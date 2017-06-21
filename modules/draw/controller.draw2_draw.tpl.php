@@ -18,9 +18,11 @@
 <h2>Listy do losowania</h2>
 <p>Listy zawierają numer PESEL z ukrytym początkiem i końcem.</p>
 
+<?php /** ?>
 <div id="draw-test-mode" class="message warning">
 	Tryb testowy! Ograniczona liczba losowań.
 </div>
+<?php /**/ ?>
 
 <input type="button" id="draw-starter" value="Losuj">
 <a href="<?=MainMenu::getModuleUrl('draw', 'results')?>" id="draw-continue">Wyniki</a>
