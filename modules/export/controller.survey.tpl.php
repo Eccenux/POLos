@@ -1,6 +1,6 @@
 <h3>Dane wylosowanych (<?=$tplData['count']?>)</h3>
 
-Wygnerowane dane do pliku <a href="<?=$tplData['file']?>"><?=$tplData['file']?></a>.
+Wygnerowane dane zapisane do pliku <a href="<?=$tplData['file']?>"><?=$tplData['file']?></a>.
 <?php
 /*
 	ModuleTemplate::printArray($tplData['personal'], array(
