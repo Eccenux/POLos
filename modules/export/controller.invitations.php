@@ -9,7 +9,7 @@
 	$dbPersonal = new dbPersonal();
 
 	$tplData = array();
-	$tplData['file'] = 'invites.csv';
+	$tplData['file'] = 'export.invites.csv';
 
 	// get
 	$dbPersonal->pf_getRecords($rows, array(
@@ -34,7 +34,6 @@
 	// header
 	fputcsv($fp, array(
 		'kod',
-		'pesel',
 		'imię',
 		'naziwsko',
 		'miasto',
@@ -46,7 +45,7 @@
 	// rows
 	$encoder = new NumericEncoder();
 	foreach ($rows as $row) {
-		$row['id'] = 1000 * $row['id'] + intval(substr($row['pesel'], 0, 3));
+		$row['id'] = $encoder->encode(1000 * $row['id'] + intval(substr($row['pesel'], 0, 3)));
 		unset($row['pesel']);
 		fputcsv($fp, $row);
 	}
