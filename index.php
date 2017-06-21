@@ -27,6 +27,10 @@
 	include './inc/fun_error.php';
 	init_myErrorHandler();
 
+	// setup performance check
+	include './inc/Ticks.php';
+	$ticks = new cTicks();
+
 	//
 	// Display mode and other params
 	//
@@ -43,6 +47,7 @@
 	//
 	// Main menu and names of modules
 	//
+	$ticks->pf_insTick('MainMenu');
 	$pv_mainMenu = new MainMenu();
 	$pv_modules = DirHelper::getSubdirectories("./modules/");
 	foreach($pv_modules as $mname)
@@ -51,6 +56,7 @@
 		@include('./modules/'.$mname.'/_menu.php');
 		$pv_mainMenu->addItem($pv_menuItem, $userName);
 	}
+	$ticks->pf_endTick('MainMenu');
 
 	//
 	// Setup current module
@@ -75,12 +81,14 @@
 	//
 	// Render current module
 	//
+	$ticks->pf_insTick('Controller');
 	ob_start();
 	if (is_file($pv_controller->controllerPath))
 	{
 		include($pv_controller->controllerPath);
 	}
 	$pv_page_content = ob_get_clean();
+	$ticks->pf_endTick('Controller');
 
 	//
 	// Register visit
@@ -104,11 +112,13 @@
 		$pv_titles = $pv_mainMenu->getPageTitles($moduleName, $moduleAction);
 		$pv_page_title = $pv_titles['title'];
 		
+		$ticks->pf_insTick('RenderMenu');
 		// Prepare&render menu
 		$pv_mainMenu->prepare();
 		ob_start();
 		include("./tpls/_menu.tpl.php");
 		$pv_mainMenu = ob_get_clean();
+		$ticks->pf_endTick('RenderMenu');
 
 		// Render page
 		include('./tpls/_structure.tpl.php');

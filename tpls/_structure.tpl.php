@@ -62,7 +62,14 @@
 			<?=$pv_page_content?>
 		</div>
 		<div id="footer">
-			<p>Copyright &copy;2014-2017 Maciej Jaros.</p>
+			<p>Copyright &copy;2017 Maciej Jaros, UM Gdańsk.</p>
+			<?php
+				$arrTicks = $ticks->pf_getDurations();
+				echo 'Ticks [s]:';
+				foreach ($arrTicks as $strTickName=>$intDurtation) {
+					echo sprintf("\n%s: %.4f", $strTickName, $intDurtation);
+				}
+			?>
 		</div>
 
 		<div id="randomApi-verify-dialog" title="Weryfikacja losowania" style="display: none">
