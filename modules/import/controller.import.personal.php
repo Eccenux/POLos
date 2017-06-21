@@ -12,6 +12,9 @@
 
 	$tplData = array();
 
+	// disable time limit
+	set_time_limit(0);
+
 	// save
 	if (!empty($_POST['save']) && !empty($_FILES['csv']) && !empty($_FILES['csv']["tmp_name"])) {
 		//echo "<pre>".var_export($_POST, true)."</pre>";
