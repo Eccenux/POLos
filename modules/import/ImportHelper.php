@@ -49,7 +49,7 @@ class ImportHelper
 				'type' => $this->type,
 				'column_map' => $order,
 				'name' => $file['name'],
-				'contents' => file_get_contents($csvPath),
+				//'contents' => file_get_contents($csvPath),
 			), true);
 		}
 
