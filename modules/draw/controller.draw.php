@@ -14,6 +14,9 @@
 
 	$stage = empty($_GET['stage']) ? 0 : intval($_GET['stage']);
 
+	// disable time limit
+	set_time_limit(0);
+	
 	switch ($stage) {
 		// confirm
 		case 0:
