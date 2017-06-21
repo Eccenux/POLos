@@ -75,6 +75,7 @@ class ImportHelper
 			);
 			return $dbClass->pf_insRecord($invalidRecord);
 		}
+		return true;
 	}
 
 	/**
@@ -97,7 +98,7 @@ class ImportHelper
 			foreach ($records as $record)
 			{
 				if (!$insRecord($record, $rowState, $this->fileId)) {
-					trigger_error("Error inserting record. Will not continue!");
+					trigger_error("Error inserting record. Will not continue!\n". var_export($record, true));
 					return false;
 				}
 			}
