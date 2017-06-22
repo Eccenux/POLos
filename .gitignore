@@ -8,3 +8,4 @@ key.js
 __DB.sql
 \!_mysql*.bat
 /*.csv
+/temp
