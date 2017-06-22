@@ -28,9 +28,14 @@
 		// parse and save file
 		$helper = new ImportHelper($columnParsers, 'personal');
 		$helper->parse($_FILES['csv'], $_POST['order']);
+		/*
 		$saveStatus = $helper->save(function($record, $rowState, $fileId) use ($dbPersonal) {
 			return ImportHelper::insRecord($dbPersonal, $record, $rowState, $fileId);
 		});
+		*/
+		$ticks->pf_insTick("save");
+		$saveStatus = $dbPersonal->pf_insRecords($helper->parser->rows[CsvRowState::OK]);
+		$ticks->pf_endTick("save");
 		if ($saveStatus) {
 			if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {
 				$ticks->pf_insTick("delRecords");

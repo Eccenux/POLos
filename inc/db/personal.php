@@ -169,4 +169,53 @@ class dbPersonal extends dbBaseClass
 
 		return 1;	// OlKul :)
 	}
+
+	/**
+	 * High speed row insertion.
+	 *
+	 * @note This is might be very MySQL specifc. Not recomended for normal usage.
+	 *
+	 * @param array $pv_records Records to be inserted.
+	 * @return int 0 upon error
+	 * @throws Exception If \a pv_tableName was not set.
+	 */
+	public function pf_insRecords(&$pv_records)
+	{
+		if (empty($this->pv_tableName))
+		{
+			throw new Exception("Tabel name is empty");
+		}
+
+		// Prepare "header" of the INSERT statement
+		$pv_record = $pv_records[0];
+		$this->pf_insRecordExtraParse($pv_record);
+		$pv_ins_sql_arr = $this->pf_getInsSQLArrays($pv_record);
+		$sql = "INSERT INTO {$this->pv_tableName} {$pv_ins_sql_arr['']['keys']}
+			VALUES"
+		;
+
+		// Build SQL
+		foreach($pv_records as &$pv_record) {
+			$values = "";
+			$this->pf_insRecordExtraParse($pv_record);
+			foreach ($pv_record as $pv_val)
+			{
+				$values .= "'".mysql_real_escape_string($pv_val)."',";
+			}
+			$sql .= "\n(". rtrim($values, ",") ."),";
+		}
+		$sql = rtrim($sql, ",");
+
+		// Run
+		$pv_result = mysql_query($sql);
+		if ($pv_result==false)
+		{
+			$dumpPath = "./temp/last.personal.sql";
+			file_put_contents($dumpPath, $sql);
+			$this->msg = mysql_error();
+			trigger_error("\nSQL error: {$this->msg}\nSQL:{$dumpPath}\n", E_USER_ERROR);
+			return 0;
+		}
+		return 1;	// OK :)
+	}
 }

@@ -217,7 +217,7 @@ abstract class dbBaseClass
 	 *	and column name is without the table alias.
 	 * Number of arrays (rows) depend on the number of actual SQL tables that certain columns are in.
 	 */
-	private function pf_prepareInsertArrays ($pv_alias_val_array, $pv_excludedColumns=array())
+	protected function pf_prepareInsertArrays ($pv_alias_val_array, $pv_excludedColumns=array())
 	{
 		$pv_ret_arr = array();
 		if (!empty($pv_alias_val_array))
