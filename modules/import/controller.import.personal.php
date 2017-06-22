@@ -34,7 +34,7 @@
 		});
 		*/
 		$ticks->pf_insTick("save");
-		$saveStatus = $dbPersonal->pf_insRecords($helper->parser->rows[CsvRowState::OK]);
+		$saveStatus = $dbPersonal->pf_insRecords($helper->parser->rows[CsvRowState::OK], $helper->fileId);
 		$ticks->pf_endTick("save");
 		if ($saveStatus) {
 			if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {

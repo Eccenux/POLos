@@ -174,22 +174,33 @@ class dbPersonal extends dbBaseClass
 	 * High speed row insertion.
 	 *
 	 * @note This is might be very MySQL specifc. Not recomended for normal usage.
+	 * @note We assume `pf_insRecordExtraParse`.
 	 *
 	 * @param array $pv_records Records to be inserted.
 	 * @return int 0 upon error
 	 * @throws Exception If \a pv_tableName was not set.
 	 */
-	public function pf_insRecords(&$pv_records)
+	public function pf_insRecords(&$pv_records, $fileId)
 	{
 		if (empty($this->pv_tableName))
 		{
 			throw new Exception("Tabel name is empty");
 		}
 
+		// static values
+		$pv_staticRecord = array();
+		$pv_staticRecord['csv_file'] = $fileId;
+		$this->pf_insRecordExtraParse($pv_staticRecord);	// Note! Assuming it only adds values.
+		$pv_staticValues = "";
+		foreach ($pv_staticRecord as $pv_val)
+		{
+			$pv_staticValues .= "'".mysql_real_escape_string($pv_val)."',";
+		}
+		$pv_staticValues = rtrim($pv_staticValues, ",");
+
 		// Prepare "header" of the INSERT statement
-		$pv_record = $pv_records[0];
-		$this->pf_insRecordExtraParse($pv_record);
-		$pv_ins_sql_arr = $this->pf_getInsSQLArrays($pv_record);
+		$pv_headerRecord = array_merge($pv_records[0], $pv_staticRecord);
+		$pv_ins_sql_arr = $this->pf_getInsSQLArrays($pv_headerRecord);
 		$sql = "INSERT INTO {$this->pv_tableName} {$pv_ins_sql_arr['']['keys']}
 			VALUES"
 		;
@@ -197,12 +208,11 @@ class dbPersonal extends dbBaseClass
 		// Build SQL
 		foreach($pv_records as &$pv_record) {
 			$values = "";
-			$this->pf_insRecordExtraParse($pv_record);
 			foreach ($pv_record as $pv_val)
 			{
 				$values .= "'".mysql_real_escape_string($pv_val)."',";
 			}
-			$sql .= "\n(". rtrim($values, ",") ."),";
+			$sql .= "\n($values $pv_staticValues),";
 		}
 		$sql = rtrim($sql, ",");
 
