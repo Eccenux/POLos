@@ -43,7 +43,7 @@
 				$ticks->pf_endTick("delRecords");
 			}
 		}
-		$tplData['parserInfo'] = $helper->infoBuild();
+		$tplData['parserInfo'] = $helper->infoBuild($saveStatus);
 	}
 	
 	// get

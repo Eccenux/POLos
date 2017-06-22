@@ -145,8 +145,16 @@ class ImportHelper
 	 *
 	 * @return string HTML messages.
 	 */
-	function infoBuild() {
+	function infoBuild($saveStatus = true) {
 		$html = "";
+
+		if (!$saveStatus) {
+			$html .=
+				"<div class='message error'>"
+					. "Zapis danych w bazie nie powiódł się. Więcej informacji w logu błędów."
+				. "</div>"
+			;
+		}
 
 		$parser = $this->parser;
 
