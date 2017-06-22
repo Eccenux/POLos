@@ -61,10 +61,10 @@ class CsvParser
 	 */
 	public $rows = array();
 	/**
-	 * File handle.
-	 * @var resource
+	 * Lines.
+	 * @var array
 	 */
-	private $file = null;
+	private $lines = null;
 	/**
 	 * Order array with ignored columns set to "-".
 	 * @var array
@@ -79,7 +79,8 @@ class CsvParser
 	public function __construct($path, $order)
 	{
 		$this->order = $order;
-		if (($this->file = fopen($path, "r")) === FALSE) {
+		$this->lines = file($path);	// Note! Might require 3x the size of the file in memory
+		if (empty($this->lines)) {
 			$this->messages[] = "Nie udało się otworzyć pliku. Błąd dostępu lub plik nie istnieje.";
 			$this->state = CsvParserState::GENERAL_ERROR;
 		}
@@ -98,18 +99,10 @@ class CsvParser
 		if ($this->state === CsvParserState::GENERAL_ERROR) {
 			return $this->state;
 		}
-		$handle = $this->file;
 		$totalRows = 0;
 		$validRows = 0;
 		$state = CsvParserState::OK;
-		while (($raw_csv = fgets($handle, $this->maxPerLine)) !== false) {
-			if (strlen($raw_csv) + 1 >= $this->maxPerLine) {
-				$this->messages[] = "Jeden z wierszy jest zbyt długi! Nie można przetworzyć pliku.";
-				$this->messages[] = "$raw_csv";
-				$state = CsvParserState::GENERAL_ERROR;
-				break;
-			}
-			$raw_csv = rtrim($raw_csv);
+		foreach ($this->lines as &$raw_csv) {
 			$data = str_getcsv($raw_csv);
 			$row = $this->parseRow($data);
 			if ($appendCsvRow) {
@@ -134,7 +127,6 @@ class CsvParser
 			$this->messages[] = "Cały plik jest niepoprawny! Żaden odczytany wiersz nie był poprawny.";
 			$state = CsvParserState::GENERAL_ERROR;
 		}
-		fclose($handle);
 		$this->state = $state;
 		return $this->state;
 	}
