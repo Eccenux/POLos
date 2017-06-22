@@ -11,8 +11,6 @@ class ConfigHelper
 	{
 		switch ($key)
 		{
-			case 'panel_stage':
-				return (!defined('PANEL_STAGE')) ? 'draw' : constant('PANEL_STAGE');
 			case 'require_secure_connection':
 				return defined('REQUIRE_SECURE_CONNECTION') && constant('REQUIRE_SECURE_CONNECTION');
 			case 'register_visits':
