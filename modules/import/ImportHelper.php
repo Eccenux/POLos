@@ -30,9 +30,10 @@ class ImportHelper
 	 *
 	 * @param array $file Uploaded file specs from `$_FILES`.
 	 * @param string $order Order sent by user.
+	 * @param bool $appendCsvRow It true then adds `csv_row` to each valid and invalid row.
 	 * @return \CsvParser
 	 */
-	function parse($file, $order) {
+	function parse($file, $order, $appendCsvRow = true) {
 		/* @var $ticks cTicks */
 		global $ticks;
 		// parse file
@@ -41,7 +42,7 @@ class ImportHelper
 		$parser = new CsvParser($csvPath, $csvOrder);
 		$parser->columnParsers = $this->columnParsers;
 		$ticks->pf_insTick("parse-csv");
-		$state = $parser->parse(true);
+		$state = $parser->parse($appendCsvRow);
 		$ticks->pf_endTick("parse-csv");
 		//echo "<pre>".var_export($parser->rows, true)."</pre>";
 

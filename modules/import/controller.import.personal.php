@@ -27,7 +27,7 @@
 
 		// parse and save file
 		$helper = new ImportHelper($columnParsers, 'personal');
-		$helper->parse($_FILES['csv'], $_POST['order']);
+		$helper->parse($_FILES['csv'], $_POST['order'], false);
 		/*
 		$saveStatus = $helper->save(function($record, $rowState, $fileId) use ($dbPersonal) {
 			return ImportHelper::insRecord($dbPersonal, $record, $rowState, $fileId);
