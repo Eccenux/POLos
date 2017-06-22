@@ -33,14 +33,19 @@ class ImportHelper
 	 * @return \CsvParser
 	 */
 	function parse($file, $order) {
+		/* @var $ticks cTicks */
+		global $ticks;
 		// parse file
 		$csvPath = $file["tmp_name"];
 		$csvOrder = explode(",", $order);
 		$parser = new CsvParser($csvPath, $csvOrder);
 		$parser->columnParsers = $this->columnParsers;
+		$ticks->pf_insTick("parse-csv");
 		$state = $parser->parse(true);
+		$ticks->pf_endTick("parse-csv");
 		//echo "<pre>".var_export($parser->rows, true)."</pre>";
 
+		$ticks->pf_insTick("parse-save-file");
 		if ($state !== CsvParserState::GENERAL_ERROR) {
 			// save file
 			require_once ('./inc/db/file.php');
@@ -52,6 +57,7 @@ class ImportHelper
 				//'contents' => file_get_contents($csvPath),
 			), true);
 		}
+		$ticks->pf_endTick("parse-save-file");
 
 		$this->parser = $parser;
 		return $parser;
@@ -87,12 +93,16 @@ class ImportHelper
 	 * @param callable $insRecord Function for inserting a row record.
 	 */
 	function save($insRecord) {
+		/* @var $ticks cTicks */
+		global $ticks;
+		
 		$parser = $this->parser;
 		$state = $parser->state;
 
 		if ($state === CsvParserState::GENERAL_ERROR) {
 			return false;
 		}
+		$ticks->pf_insTick("save");
 		foreach ($parser->rows as $rowState => $records)
 		{
 			foreach ($records as $record)
@@ -103,6 +113,7 @@ class ImportHelper
 				}
 			}
 		}
+		$ticks->pf_endTick("save");
 		return true;
 	}
 

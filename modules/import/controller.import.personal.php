@@ -6,6 +6,7 @@
 	{
 		die("No hacking allowded ;).");
 	}
+	/* @var $ticks cTicks */
 	
 	require_once ('./inc/db/personal.php');
 	$dbPersonal = new dbPersonal();
@@ -32,7 +33,9 @@
 		});
 		if ($saveStatus) {
 			if (!empty($_POST['overwrite']) && $_POST['overwrite'] === 'y') {
+				$ticks->pf_insTick("delRecords");
 				$dbPersonal->pf_delRecords(array('csv_file' => array('!=', $helper->fileId)));
+				$ticks->pf_endTick("delRecords");
 			}
 		}
 		$tplData['parserInfo'] = $helper->infoBuild();
