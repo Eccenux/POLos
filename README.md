@@ -22,7 +22,7 @@ Przebieg programu
 
 1. Przetworzenie listy profili zaproszenia, w tym liczby zaproszeń do wylosowania.
 2. Przetworzenie rejestru w celu ustalenia płci, wieku, dzielnicy oraz danych adresowych.
-3. Wyświetlenie liczby przetworzonych i liczby nieprzetworzonych (np. nieznana dzielnica).
+3. Wyświetlenie liczby przetworzonych i liczby nieprzetworzonych (np. nieprawidłowy PESEL).
 
 Import odbywa się z użyciem plików CSV, które można wyeksportować z bazy danych lub z arkusza Excel czy Open Office.
 
@@ -30,21 +30,23 @@ Ważne! **Pliki XLS (Excel) mają ograniczenie do niecałych 66 tys**. wierszy, 
 
 Można jednak podzielić dane na części. POLos obsługuje przesyłanie paru plików z danymi osobowymi.
 
+Mimo wszystko zalecane jest korzystanie z Open Office, ponieważ lepiej obsługuje pliki CSV. Zwłaszcza otwieranie wyeksportowanych plików CSV.
+
 ### Losowanie ###
 
 1. Dla każdego profilu:
 	1. Ustalana jest lista osób pasujących do profilu zaproszenia i sortowana np. wg PESEL.
 	2. Z tej listy (a nie z całego rejestru) losowane są zaproszenia dla danej grupy.
 	3. Dane do weryfikacji losowania są zapisywane.
-	4. Wylosowanym osobom nadawane są identyfikatory.
 2. Po losowaniu można sprawdzić jego przebieg i zweryfikować, że losowanie zostało wykonane za pomocą Random.org (losowania mają podpis za pomocą certyfikatu pochodzącego z Random.org).
-
-Przy generowaniu identyfikatorów pomijane są mylące znaki np. „I” (jak Igor), „l” (jak lampa).
 
 ### Eksport danych ###
 
 1. Z programu eksportowane są dane adresowe wraz z identyfikatorem służące później do wydruku zaproszeń.
 2. Osobny eksport jest wykonywany dla systemu ankietowego. W tym eksporcie nie ma pełnych danych osobowych, tylko identyfikator oraz imię. Dodatkowo eksportowana jest dzielnica.
+3. Wylosowanym osobom nadawane są identyfikatory.
+
+Przy generowaniu identyfikatorów pomijane są mylące znaki np. „I” (jak Igor), „l” (jak lampa).
 
 Wydruk zaproszeń **nie** jest częścią POLos.
 
@@ -53,12 +55,27 @@ Wymagania techniczne
 
 Ze względu na przetwarzanie dużej ilości danych program działa w środowisku serwerowym.
 
+#### Sprzęt ####
+
 Za serwer może posłużyć w miarę dowolny, współczesny komputer. Zalecane parametry:
 * CPU: 3 GHz, quad, 64-bit.
 * RAM: 8 GB.
-* Dysk: 20 GB wolnego miejsca.
+* Dysk: 20 GB wolnego miejsca. Uwaga! Zalecana jest instalacja na dysku typu SSD!
+
+### Oprogramowanie ###
 
 Wymagane programy:
 * Apache 2.2 lub nowszy.
-* PHP 5.3 lub nowszy.
-* MySQL 5.0 lub nowszy.
+* PHP 5.3 lub nowszy. Wymagane rozszerzenie `mysql`.
+* MySQL 5.1 lub nowszy. Uwaga! Musi być skonfigurowany na obsługę UTF-8.
+* Appache Open Office lub Libre Office do obsługi plików CSV. MS Excel może sobie nie poradzić z kodowaniem UTF-8.
+
+### Uwagi do instalacji ###
+
+Na dysku SSD (lub innym szybkim dysku) powinny być przede wszystkim:
+* Folder tymczasowy PHP (określony przez `upload_tmp_dir` w pliku `php.ini`).
+* Folder danych MySQL (określony przez `datadir` w pliku `my.ini`).
+
+Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Inaczej może być problem z wyświetlaniem polskich znaków.
+
+Na stronie `sys-test.php` znajdują się wymagania co do niektórych parametrów PHP oraz MySQL. Zalecane wartości tam podane są przewidziane na przetwarzanie plików CSV między 20-30 MB. W razie wątpliwości lepiej jest wybrać większe wartości.
