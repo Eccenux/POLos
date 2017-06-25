@@ -10,6 +10,8 @@ POLos jest podzielony na 3 etapy:
 
 Copyright &copy; 2017 Maciej Jaros. All rights reserved.
 
+Informacji o instalacji oraz informacje o typowych problemach znajdują się w [INSTALL.md](INSTALL.md).
+
 Założenia
 ---------
 
