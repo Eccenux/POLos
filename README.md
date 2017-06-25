@@ -8,6 +8,8 @@ POLos jest podzielony na 3 etapy:
 2. **Losowanie** -- losowanie za pomocą usługi Random.org.
 3. **Eksport danych** -- eksport danych wylosowanych osób wraz ze specjalnym identyfikatorem, który powinien zostać dołączony do zaproszenia.
 
+Copyright &copy; 2017 Maciej Jaros. All rights reserved.
+
 Założenia
 ---------
 
@@ -79,3 +81,5 @@ Na dysku SSD (lub innym szybkim dysku) powinny być przede wszystkim:
 Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Inaczej może być problem z wyświetlaniem polskich znaków.
 
 Na stronie `sys-test.php` znajdują się wymagania co do niektórych parametrów PHP oraz MySQL. Zalecane wartości tam podane są przewidziane na przetwarzanie plików CSV między 20-30 MB. W razie wątpliwości lepiej jest wybrać większe wartości.
+
+Więcej informacji o instalacji oraz informacje o typowych problemach znajdują się w [INSTALL.md](INSTALL.md).
