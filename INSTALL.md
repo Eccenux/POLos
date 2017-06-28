@@ -169,13 +169,28 @@ Można także spróbować dostosować konfigurację MySQL (w pliku `my.ini`) tak
 
 ### Nie udaje się import niektórych wierszy ###
 
-Podczas importu wykonywana jest walidacja danych. Odrzucane są m.in. wiersze z nieprawidłowym PESEL.
+Podczas importu wykonywana jest walidacja danych. Odrzucane są m.in. wiersze z nieprawidłowym zakresem wieku (w wypadku profili), czy z nieprawidłowym PESEL (w wypadku danych osobowych).
 
 Błędne dane można sprawdzić w bazie danych. Do wykonywania zapytań SQL można np. skorzystać z [phpMyAdmin](https://www.phpmyadmin.net/downloads/).
 
-Do sprawdzania błędnych profili:
-SELECT * FROM profile
-WHERE 
+Zapytanie do sprawdzania błędnych rekordów profili:
+```sql
+SELECT *
+FROM profile
+WHERE row_state <>0
+LIMIT 0 , 30
+```
+
+Sprawdzenie błędnych rekordów osobowych w ten sposób jest obecnie niemożliwe, ponieważ import błędnych wierszy został wyłączony ze względów wydajnościowych. Jeśli przy wstawianiu danych osobowych do bazy pojawi się błąd, to zrzut zapytania SQL powinien pojawić się w `polos\temp\last.personal.sql`.
+
+Żeby spróbować sprawdzić, które rekordy osobowe nie zostały zaimportowane można spróbować zrobić pełny eksport zaimportowane danych za pomocą poniższego zapytania. Wyniki zapytania można wyeksportować do pliku CSV i porównać z importowanym plikiem.
+```sql
+SELECT `region`, `pesel`, `name`, `surname`, `city`, `street`, `building_no`, `flat_no`, `zip_code` 
+FROM personal
+ORDER BY id ASC
+```
+
+Żeby wykonać eksport wyników zapytania w phpMyAdmin, musisz wykonać zapytanie, a potem **pod tabelką wyników** wybrać operację eksportu.
 
 ### Inne problemy? ###
 1. Na stronie `sys-test.php` znajdują się wymagania co do niektórych parametrów PHP oraz MySQL. Sprawdź czy wszystko się zgadza. Pamiętaj, że zalecane wartości tam podane są przewidziane na przetwarzanie plików CSV między 20-30 MB. W razie wątpliwości lepiej jest wybrać większe wartości. 
