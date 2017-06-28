@@ -8,9 +8,11 @@ POLos jest podzielony na 3 etapy:
 2. **Losowanie** -- losowanie za pomocą usługi Random.org.
 3. **Eksport danych** -- eksport danych wylosowanych osób wraz ze specjalnym identyfikatorem, który powinien zostać dołączony do zaproszenia.
 
-Copyright &copy; 2017 Maciej Jaros. All rights reserved.
-
 Informacji o instalacji oraz informacje o typowych problemach znajdują się w [INSTALL.md](INSTALL.md).
+
+**Program został sfinansowany ze środków Gminy Miasta Gdańsk** i udostępniony na otwartej licencji CC-BY 4.0. Patrz: [LICENSE.md](LICENSE.md).
+
+Copyright © 2017 Maciej "Nux" Jaros, Gmina Miasta Gdańsk.
 
 Założenia
 ---------
@@ -59,7 +61,7 @@ Wymagania techniczne
 
 Ze względu na przetwarzanie dużej ilości danych program działa w środowisku serwerowym.
 
-#### Sprzęt ####
+### Sprzęt ###
 
 Za serwer może posłużyć w miarę dowolny, współczesny komputer. Zalecane parametry:
 * CPU: 3 GHz, quad, 64-bit.
