@@ -121,24 +121,8 @@ Można też zaimportować strukturę w phpMyAdmin. Plik `__TABLES.sql` znajduje 
 #### Skrypty ####
 
 1. Najpierw skopiuj pliki na serwer Apache np. do folderu `htdocs\polos`.
-2. Utwórz plik `polos\inc\dbConnect.php` i wpisz w nim polecenia połączenia z bazą MySQL. 
-
-Przykładowa zawartość:
-```php
-<?php
-	define('CLIENT_LONG_PASSWORD', 1);
-	if (!mysql_connect('localhost', 'polos_user', 'ljk23h5lj4h3kl5j34lk', false, CLIENT_LONG_PASSWORD)) {
-		die('Could not connect: ' . mysql_error());
-	}
-	if (!mysql_select_db('polos_db')) {
-		die('Could not connect db: ' . mysql_error());
-	}
-	/*
-	if (!mysql_query("SET NAMES 'utf8'")) {
-		die('char: ' . mysql_error());
-	}
-	*/ 
-```
+2. Utwórz plik `polos\inc\dbConnect.php` i wpisz w nim polecenia połączenia z bazą MySQL. Przykładowa zawartość pliku `dbConnect.php` znajduje się w [dbConnect.example.php](inc/dbConnect.example.php). Oczywiście należy w nim wpisać właściwe hasło.
+3. Utwórz plik `polos\js\random-org\key.js` i wpisz w nim klucz API uzyskany z Random.org. Przykładowa zawartość pliku `key.js` znajduje się w [key.example.js](js/random-org/key.example.js).
 
 Typowe problemy
 ---------------
