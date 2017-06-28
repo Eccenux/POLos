@@ -1,0 +1,153 @@
+<h1>Instalacja POLos</h1>
+<p>Ze względu na przetwarzanie dużej ilości danych program działa w środowisku serwerowym (Apache, PHP, MySQL). Nie jest wymagany konkretny system, ale testy były wykonywane na Windows (konkretnie na Windows 10).</p>
+<h2>Wymagania sprzętowe</h2>
+<p>Za serwer może posłużyć w miarę dowolny, współczesny komputer. Zalecane parametry:</p>
+<ul>
+<li>CPU: 3 GHz, quad, 64-bit.</li>
+<li>RAM: 8 GB.</li>
+<li>Dysk: 20 GB wolnego miejsca. Uwaga! Zalecana jest instalacja na dysku typu SSD!</li>
+</ul>
+<p>Zamiast dysku SSD można ew. użyć dwóch dysków HDD, ale program będzie działał zauważalnie wolniej (nawet 10 razy wolniej).</p>
+<p>Można też spróbować użyć dwóch wolniejszych komputerów. Jeden na serwer SQL, a drugi na serwer Apache+PHP. Ważne! Ze na wydajność oraz <strong>ze względów bezpieczeństwa</strong> zalecane jest korzystanie wyłącznie z sieci lokalnej.</p>
+<h2>Instalacja oprogramowania</h2>
+<h3>Klient</h3>
+<p>Dostęp do programu odbywa się przez przeglądarkę (najlepiej Firefox lub Chrome). W starych IE (starszym niż ten z Windows 7), wygląd niektórych elementów może być dziwny -- zwłaszcza losowania.</p>
+<p>Zalecany jest dostęp lokalny, czyli z tego samego komputera, na którym jest Apache. Wówczas niepotrzebne jest szyfrowanie połączenie i konfigurowanie uwierzytelniania (logowania).</p>
+<p>Do obsługi plików CSV najlepiej zainstalować <a target="_blank" href="https://www.openoffice.org/pl/download/index.html">Apache Open Office</a> lub ew. Libre Office . MS Excel może wystarczyć do eksportu plików CSV, ale nie poradzi sobie z kodowaniem UTF-8 przy eksporcie plików CSV.</p>
+<h3>Serwer</h3>
+<p>Na komputerze muszą być zainstalowane i skonfigurowane następujące programy serwerowe: </p>
+<ul>
+<li>Apache 2.2 lub nowszy.</li>
+<li>PHP 5.3 lub nowszy. Wymagane rozszerzenie <code>mysql</code>.</li>
+<li>MySQL 5.1 lub nowszy. Uwaga! Musi być skonfigurowany na obsługę UTF-8.</li>
+</ul>
+<p>Poza tym, że używane jest rozszerzenie <code>mysql</code>, to nie ma konkretnych wymagań do wersji PHP. Można próbować instalować POLos na zintegrowanych pakietach serwerowych typu XAMPP, czy WampServer.</p>
+<p>Zalecane wersje to:</p>
+<ul>
+<li>httpd-2.2.25-win32-x86-openssl-0.9.8y.msi</li>
+<li>mysql-5.1.50-win32 (full).msi</li>
+<li>php-5.3.5-Win32-VC6-x86.msi</li>
+</ul>
+<h3>Instalacja serwera</h3>
+<p>Na serwerze należy zainstalować Apache, PHP i MySQL.</p>
+<p><strong>Ważne! Niektóre rzeczy powinny być skonfigurowane podczas instalacji</strong>! Szczegóły poniżej.</p>
+<ol>
+<li>Instalacja Apache.</li>
+<li>Instalacja PHP. Ważne etapy:
+<ol>
+<li>Przy instalacji zaznacz moduł <code>mysql</code> jeśli nie jest domyślnie zaznaczony.</li>
+<li>Wskaż folder <code>conf</code> z zainstalowanego Apache. Bez tego PHP nie będzie działał poprawnie.</li>
+</ol></li>
+<li>Instalacja MySQL.
+<ol>
+<li>Najlepiej wybrać wstępną konfigurację, która będzie w stanie obsłużyć dużą ilość danych (serwerową).</li>
+<li>Musisz wybrać obsługę kodowanie UTF-8.</li>
+</ol></li>
+</ol>
+<p><strong>Uwaga!</strong> Instalator PHP 5.3 może mieć problem z ustawieniem ścieżki w konfiguracji Apache. Po instalacji upewnij się, że na końcu <code>httpd.conf</code> znajduje się coś w rodzaju:</p>
+<pre><code class="language-ini">#BEGIN PHP INSTALLER EDITS - REMOVE ONLY ON UNINSTALL
+PHPIniDir "c:/Program Files (x86)/PHP/"
+LoadModule php5_module "c:/Program Files (x86)/PHP/php5apache2_2.dll"
+#END PHP INSTALLER EDITS - REMOVE ONLY ON UNINSTALL</code></pre>
+<h3>Konfiguracja serwera</h3>
+<h4>Apache</h4>
+<p>W pliku <code>httpd.conf</code> znajduje się główna konfiguracja Apache. </p>
+<ol>
+<li>Należy zmienić konfigurację głównego folderu ze skryptami. W wypadku typowej instalacji Windows to <code>&lt;Directory "C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs"&gt;</code>. Należy zmienić w niej <code>AllowOverride None</code> na <code>AllowOverride All</code>.</li>
+<li>W dyrektywę <code>DirectoryIndex</code> należy dodać <code>index.php</code>. Czyli zmienić ją na: <code>DirectoryIndex index.php index.html</code>.</li>
+</ol>
+<p>Dodatkowo w wypadku użycia poza siecią lokalną należy włączyć moduły:</p>
+<ol>
+<li><code>mod_rewrite</code> -- do przekierowań.</li>
+<li><code>mod_ssl</code> -- do szyfrowania (HTTPS).</li>
+</ol>
+<p>Należy pamiętać, że <strong>po zmianie konfiguracji konieczny jest restart usługi Apache</strong>.</p>
+<h4>PHP</h4>
+<p>W pliku <code>php.ini</code> znajduje się główna konfiguracja PHP.</p>
+<p>Należy ustawić:</p>
+<ol>
+<li><code>short_open_tag</code> na <code>On</code>.</li>
+<li><code>display_errors</code> na <code>Off</code>.</li>
+<li><code>upload_max_filesize</code> na <code>30M</code> (lub więcej - ogranicza wielkość przesyłanych plików).</li>
+<li><code>memory_limit</code> na <code>512M</code> (lub więcej).</li>
+<li><code>post_max_size</code> musi być większe <code>upload_max_filesize</code>, ale mniejsze od <code>memory_limit</code>. Zalecane jest ustawienie przynajmniej o 10M większe od <code>upload_max_filesize</code>.</li>
+</ol>
+<p>Upewnij się także, że <code>upload_tmp_dir</code>, <code>session.save_path</code> oraz <code>error_log</code> wskazują na istniejący folder.</p>
+<p>Należy pamiętać, że <strong>po zmianie konfiguracji konieczny jest restart usługi Apache</strong>.</p>
+<h4>MySQL</h4>
+<p>O ile pamiętało się, żeby podczas instalacji MySQL skonfigurować przez kreator usługę, to większość domyślnych ustawień powinna wystarczyć.</p>
+<p>Należy jedynie <code>my.ini</code> należy powiększyć <code>max_allowed_packet</code> na około 2 razy więcej niż plik CSV. Jeśli w pliku <code>my.ini</code> nie ma wpisu &quot;max_allowed_packet&quot;, to należy go dodać w sekcji <code>[mysqld]</code>. Powinno to wyglądać tak:</p>
+<pre><code class="language-ini">max_allowed_packet = 100M </code></pre>
+<h4>Baza danych</h4>
+<p>Na początek należy utworzyć bazę danych. Można to zrobić w konsoli MySQL lub przez <a target="_blank" href="https://www.phpmyadmin.net/downloads/">phpMyAdmin</a>.</p>
+<p>Tworzenie bazy i użytkownika:</p>
+<pre><code class="language-sql">CREATE DATABASE polos_db;
+GRANT ALL ON polos_db.* 
+    TO polos_user@localhost IDENTIFIED BY '...jakieś hasło do bazy...';</code></pre>
+<p>Tworzenie struktury:</p>
+<pre><code class="language-bash">mysql -uroot -pHasloRoot --database=polos_db &lt; __TABLES.sql</code></pre>
+<p>Można też zaimportować strukturę w phpMyAdmin. Plik <code>__TABLES.sql</code> znajduje się w folderze <code>.sql</code>.</p>
+<p><strong>Uwaga! Wykonanie pliku <code>__TABLES.sql</code> kasuje bieżące dane</strong>.</p>
+<h4>Skrypty</h4>
+<ol>
+<li>Najpierw skopiuj pliki na serwer Apache np. do folderu <code>htdocs\polos</code>.</li>
+<li>Utwórz plik <code>polos\inc\dbConnect.php</code> i wpisz w nim polecenia połączenia z bazą MySQL. Przykładowa zawartość pliku <code>dbConnect.php</code> znajduje się w <a target="_blank" href="https://github.com/Eccenux/POLos/blob/master/inc/dbConnect.example.php">dbConnect.example.php</a>. Oczywiście należy w nim wpisać właściwe hasło.</li>
+<li>Utwórz plik <code>polos\js\random-org\key.js</code> i wpisz w nim klucz API uzyskany z Random.org. Przykładowa zawartość pliku <code>key.js</code> znajduje się w <a target="_blank" href="https://github.com/Eccenux/POLos/blob/master/js/random-org/key.example.js">key.example.js</a>.</li>
+</ol>
+<h2>Typowe problemy</h2>
+<h3>Apache nie uruchamia się</h3>
+<ol>
+<li>Upewnij się, że ścieżka do pliku <code>php5apache2_2.dll</code> jest prawidłowa.</li>
+<li>Upewnij się, że folder podany w dyrektywie <code>DocumentRoot</code> w <code>httpd.conf</code> istnieje.</li>
+<li>Upewnij się, że port podany w dyrektywie <code>Listen</code> w <code>httpd.conf</code> jest wolny. Można to zrobić poleceniem <code>netstat -aon | findstr 80</code> (zakładając, że <code>80</code> to numer portu). </li>
+</ol>
+<h3>PHP nie uruchamia się</h3>
+<ol>
+<li>Upewnij się, że w <code>conf\mime.types</code> znajdują się wpisy:
+<pre><code>application/x-httpd-php php
+application/x-httpd-php-source  phps</code></pre></li>
+<li>Upewnij się także, że w pliku <code>httpd.conf</code> znajdują się polecenia <code>PHPIniDir</code> oraz <code>LoadModule php5_module</code> podane powyżej.</li>
+<li>Upewnij się też, że plik <code>php5apache2_2.dll</code> jest w folderze PHP.</li>
+</ol>
+<h3>Import nie działa</h3>
+<p>Spróbuj najpierw z importu mniejszej ilości danych (np. pierwsze 1000 wierszy). POLos powinien wyświetlić komunikat z informacją co jest nie tak z danymi. </p>
+<p>Jeśli nie działa import dużych plików:</p>
+<ol>
+<li>W <code>php.ini</code> powiększ <code>upload_max_filesize</code> tak by był większy niż plik CSV.</li>
+<li>W <code>php.ini</code> powiększ <code>post_max_size</code> tak by był przynajmniej o 10M większy od <code>upload_max_filesize</code>.</li>
+<li>W <code>php.ini</code> powiększ <code>memory_limit</code> (zwłaszcza jeśli w logu PHP pojawia się komunikat o problemie przydziału pamięci).</li>
+<li>W <code>my.ini</code> powiększ <code>max_allowed_packet</code> na około 2 razy więcej niż plik CSV. </li>
+</ol>
+<h3>Import działa zbyt wolno</h3>
+<p>Import danych osobowych dla dużego miasta może trwać bardzo długo na powolnym lub silnie obciążonym komputerze. To znaczy import 100 tysięcy może nawet trwać godzinę, podczas gdy na szybkim, dobrze skonfigurowanym komputerze potrwa minutę. Dlatego zalecane jest przetwarzanie danych na dysku SSD. </p>
+<p>Na dysku SSD (lub innym szybkim dysku) powinny być przede wszystkim:</p>
+<ul>
+<li>Folder tymczasowy PHP (określony przez <code>upload_tmp_dir</code> w pliku <code>php.ini</code>).</li>
+<li>Folder danych MySQL (określony przez <code>datadir</code> w pliku <code>my.ini</code>).</li>
+</ul>
+<p>Można także spróbować dostosować konfigurację MySQL (w pliku <code>my.ini</code>) tak, żeby używała więcej pamięci RAM. Można w tym celu skorzystać z pliku <code>my-huge.ini</code> (z folderu MySQL). Ale można go wykorzystać jedynie jako wzorzec (wskazówki), bo może zawierać inne ścieżki niż używany plik <code>my.ini</code>.</p>
+<h3>W nazwach dzielnic nie ma polskich znaków</h3>
+<ol>
+<li>Sprawdź kodowanie plików CSV. Powinny być zapisanie jako pliku UTF-8. Najlepiej użyć Apache Open Office do tworzenia plików CSV.</li>
+<li>Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Najlepiej to wybrać podczas instalacji.</li>
+</ol>
+<h3>Nie udaje się import niektórych wierszy</h3>
+<p>Podczas importu wykonywana jest walidacja danych. Odrzucane są m.in. wiersze z nieprawidłowym zakresem wieku (w wypadku profili), czy z nieprawidłowym PESEL (w wypadku danych osobowych).</p>
+<p>Błędne dane można sprawdzić w bazie danych. Do wykonywania zapytań SQL można np. skorzystać z <a target="_blank" href="https://www.phpmyadmin.net/downloads/">phpMyAdmin</a>.</p>
+<p>Zapytanie do sprawdzania błędnych rekordów profili:</p>
+<pre><code class="language-sql">SELECT *
+FROM profile
+WHERE row_state &lt;&gt; 0</code></pre>
+<p>Sprawdzenie błędnych rekordów osobowych w ten sposób jest obecnie niemożliwe, ponieważ import błędnych wierszy został wyłączony ze względów wydajnościowych. Jeśli przy wstawianiu danych osobowych do bazy pojawi się błąd, to zrzut zapytania SQL powinien pojawić się w <code>polos\temp\last.personal.sql</code>.</p>
+<p>Żeby spróbować sprawdzić, które rekordy osobowe nie zostały zaimportowane można spróbować zrobić pełny eksport zaimportowane danych za pomocą poniższego zapytania. Wyniki zapytania można wyeksportować do pliku CSV i porównać z importowanym plikiem.</p>
+<pre><code class="language-sql">SELECT `region`, `pesel`, `name`, `surname`, `city`, `street`, `building_no`, `flat_no`, `zip_code` 
+FROM personal
+ORDER BY id ASC</code></pre>
+<p>Żeby wykonać eksport wyników zapytania w phpMyAdmin, musisz wykonać zapytanie, a potem <strong>pod tabelką wyników</strong> wybrać operację eksportu.</p>
+<h3>Inne problemy?</h3>
+<ol>
+<li>Na stronie <code>sys-test.php</code> znajdują się wymagania co do niektórych parametrów PHP oraz MySQL. Sprawdź czy wszystko się zgadza. Pamiętaj, że zalecane wartości tam podane są przewidziane na przetwarzanie plików CSV między 20-30 MB. W razie wątpliwości lepiej jest wybrać większe wartości. </li>
+<li>Sprawdź zawartość pliku z błędami POLos (w wypadku złapanych błędów w folderze polos utworzy się <code>.err.log</code>).</li>
+<li>Sprawdź zawartość pliku z błędami PHP (systemowe błędy PHP powinny pojawić się w pliku wskazanym przez opcję <code>error_log</code>; zazwyczaj nazywa się <code>php-errors.log</code> lub <code>php_errors.log</code>).</li>
+<li>Sprawdź zawartość pliku z błędami Apache (błędy uruchamia i funkcjonowania Apache powinny pojawić się w pliku <code>logs\error.log</code>, w folderze Apache).</li>
+</ol>

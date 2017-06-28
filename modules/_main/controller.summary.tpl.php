@@ -1,1 +1,0 @@
-TODO (zrzut z readme?)

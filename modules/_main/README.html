@@ -1,0 +1,72 @@
+<h1>POLos</h1>
+<p>POLos, to system pomocniczy do pierwszego etapu wyłaniania panelu obywatelskiego -- losowania zaproszeń dla wyborców.</p>
+<p>POLos jest podzielony na 3 etapy:</p>
+<ol>
+<li><strong>Import danych</strong> -- przesłanie danych osób oraz wprowadzenie kryteriów losowania (profili).</li>
+<li><strong>Losowanie</strong> -- losowanie za pomocą usługi Random.org.</li>
+<li><strong>Eksport danych</strong> -- eksport danych wylosowanych osób wraz ze specjalnym identyfikatorem, który powinien zostać dołączony do zaproszenia.</li>
+</ol>
+<p>Informacji o instalacji oraz informacje o typowych problemach znajdują się w <a class="md-link" href="?mod=_main&amp;a=INSTALL">INSTALL.md</a>.</p>
+<p><strong>Program został sfinansowany ze środków Gminy Miasta Gdańsk</strong> i udostępniony na otwartej licencji CC-BY 4.0. Patrz: <a class="md-link" href="?mod=_main&amp;a=LICENSE">LICENSE.md</a>.</p>
+<p>Copyright © 2017 Maciej &quot;Nux&quot; Jaros, Gmina Miasta Gdańsk.</p>
+<h2>Założenia</h2>
+<ul>
+<li>Dane są losowane z dużego zbioru danych osobowych (np. listy wyborców).</li>
+<li>Profile są złożone z danych, które można ustalić z danych osobowych -- płeć, wiek, dzielnica.</li>
+<li>Do każdego profilu podana jest liczba zaproszeń do wylosowania.  </li>
+</ul>
+<h2>Przebieg programu</h2>
+<h3>Import danych</h3>
+<ol>
+<li>Przetworzenie listy profili zaproszenia, w tym liczby zaproszeń do wylosowania.</li>
+<li>Przetworzenie rejestru w celu ustalenia płci, wieku, dzielnicy oraz danych adresowych.</li>
+<li>Wyświetlenie liczby przetworzonych i liczby nieprzetworzonych (np. nieprawidłowy PESEL).</li>
+</ol>
+<p>Import odbywa się z użyciem plików CSV, które można wyeksportować z bazy danych lub z arkusza Excel czy Open Office.</p>
+<p>Ważne! <strong>Pliki XLS (Excel) mają ograniczenie do niecałych 66 tys</strong>. wierszy, a w starszych wersjach Excel jeszcze mniej. Nie można w nich zatem przechowywać spisu wyborców dużego miasta. Należy unikać tych plików przy przetwarzaniu dużej ilości danych.</p>
+<p>Można jednak podzielić dane na części. POLos obsługuje przesyłanie paru plików z danymi osobowymi.</p>
+<p>Mimo wszystko zalecane jest korzystanie z Open Office, ponieważ lepiej obsługuje pliki CSV. Zwłaszcza otwieranie wyeksportowanych plików CSV.</p>
+<h3>Losowanie</h3>
+<ol>
+<li>Dla każdego profilu:
+<ol>
+<li>Ustalana jest lista osób pasujących do profilu zaproszenia i sortowana np. wg PESEL.</li>
+<li>Z tej listy (a nie z całego rejestru) losowane są zaproszenia dla danej grupy.</li>
+<li>Dane do weryfikacji losowania są zapisywane.</li>
+</ol></li>
+<li>Po losowaniu można sprawdzić jego przebieg i zweryfikować, że losowanie zostało wykonane za pomocą Random.org (losowania mają podpis za pomocą certyfikatu pochodzącego z Random.org).</li>
+</ol>
+<h3>Eksport danych</h3>
+<ol>
+<li>Z programu eksportowane są dane adresowe wraz z identyfikatorem służące później do wydruku zaproszeń.</li>
+<li>Osobny eksport jest wykonywany dla systemu ankietowego. W tym eksporcie nie ma pełnych danych osobowych, tylko identyfikator oraz imię. Dodatkowo eksportowana jest dzielnica.</li>
+<li>Wylosowanym osobom nadawane są identyfikatory.</li>
+</ol>
+<p>Przy generowaniu identyfikatorów pomijane są mylące znaki np. „I” (jak Igor), „l” (jak lampa).</p>
+<p>Wydruk zaproszeń <strong>nie</strong> jest częścią POLos.</p>
+<h2>Wymagania techniczne</h2>
+<p>Ze względu na przetwarzanie dużej ilości danych program działa w środowisku serwerowym.</p>
+<h3>Sprzęt</h3>
+<p>Za serwer może posłużyć w miarę dowolny, współczesny komputer. Zalecane parametry:</p>
+<ul>
+<li>CPU: 3 GHz, quad, 64-bit.</li>
+<li>RAM: 8 GB.</li>
+<li>Dysk: 20 GB wolnego miejsca. Uwaga! Zalecana jest instalacja na dysku typu SSD!</li>
+</ul>
+<h3>Oprogramowanie</h3>
+<p>Wymagane programy:</p>
+<ul>
+<li>Apache 2.2 lub nowszy.</li>
+<li>PHP 5.3 lub nowszy. Wymagane rozszerzenie <code>mysql</code>.</li>
+<li>MySQL 5.1 lub nowszy. Uwaga! Musi być skonfigurowany na obsługę UTF-8.</li>
+<li>Appache Open Office lub Libre Office do obsługi plików CSV. MS Excel może sobie nie poradzić z kodowaniem UTF-8.</li>
+</ul>
+<h3>Uwagi do instalacji</h3>
+<p>Na dysku SSD (lub innym szybkim dysku) powinny być przede wszystkim:</p>
+<ul>
+<li>Folder tymczasowy PHP (określony przez <code>upload_tmp_dir</code> w pliku <code>php.ini</code>).</li>
+<li>Folder danych MySQL (określony przez <code>datadir</code> w pliku <code>my.ini</code>).</li>
+</ul>
+<p>Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Inaczej może być problem z wyświetlaniem polskich znaków.</p>
+<p>Na stronie <code>sys-test.php</code> znajdują się wymagania co do niektórych parametrów PHP oraz MySQL. Zalecane wartości tam podane są przewidziane na przetwarzanie plików CSV między 20-30 MB. W razie wątpliwości lepiej jest wybrać większe wartości.</p>
+<p>Więcej informacji o instalacji oraz informacje o typowych problemach znajdują się w <a class="md-link" href="?mod=_main&amp;a=INSTALL">INSTALL.md</a>.</p>
