@@ -177,8 +177,7 @@ Zapytanie do sprawdzania błędnych rekordów profili:
 ```sql
 SELECT *
 FROM profile
-WHERE row_state <>0
-LIMIT 0 , 30
+WHERE row_state <> 0
 ```
 
 Sprawdzenie błędnych rekordów osobowych w ten sposób jest obecnie niemożliwe, ponieważ import błędnych wierszy został wyłączony ze względów wydajnościowych. Jeśli przy wstawianiu danych osobowych do bazy pojawi się błąd, to zrzut zapytania SQL powinien pojawić się w `polos\temp\last.personal.sql`.
