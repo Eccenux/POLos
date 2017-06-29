@@ -7,10 +7,10 @@
 </section>
 
 <section>
-	<label>Napisać dane?</label>
+	<label>Nadpisać dane?</label>
 	<div class="buttonset">
 		<input type="radio" name="overwrite" id="import-overwrite-y" value="y"
-			><label for="import-overwrite-y">Tak, skasuj dane</label>
+			><label for="import-overwrite-y">Tak, skasuj poprzednie dane</label>
 		<input type="radio" name="overwrite" id="import-overwrite-n" value="n" checked="checked"
 			><label for="import-overwrite-n">Nie, dopisz dane</label>
 	</div>
