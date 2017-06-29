@@ -14,6 +14,7 @@ function drawStart() {
 	$('#draw-lists section').each(function(){
 		var item = this;
 		drawData.push({
+			item : item,
 			saveId : parseInt(item.getAttribute('data-draw-profile')),
 			min : 1,
 			max : parseInt(item.getAttribute('data-draw-persons')),
@@ -34,7 +35,7 @@ function drawStart() {
 	}
 	drawMany(drawData, function(drawItem, random, signature) {
 		//console.log(drawRemaining, drawItem, random, signature);
-		drawSave(drawItem.saveId, random, signature, function(){
+		drawSave(drawItem.item, drawItem.saveId, random, signature, function(){
 			onResponse();
 		}, function(){
 			drawErrors++;
@@ -55,12 +56,25 @@ function drawStart() {
  * @param {Function} onSuccess (responseText)
  * @param {Function} onFail (responseText)
  */
-function drawSave(saveId, random, signature, onSuccess, onFail) {
+function drawSave(drawSection, saveId, random, signature, onSuccess, onFail) {
+	//debugger;
+	var ids = [];
+	saveIdFromSection = drawSection.getAttribute('data-draw-profile');
+	var elements = drawSection.querySelectorAll('li');
+	for (var i=0; i<random.data.length; i++) {
+		try {
+			var no = random.data[i];
+			ids.push(elements[no-1].getAttribute('data-person'));
+		} catch (e) {
+			console.error('[drawSave] unable to translate person-no to id', elements.length, no, saveIdFromSection);
+			console.error(e);
+		}
+	}
 	$.ajax('?mod=draw&a=save&display=raw', {
 		'method':'post',
 		'data':{
 			'profile': saveId,
-			'persons': random.data.join(','),
+			'persons': ids.join(','),
 			'verification': JSON.stringify({
 				'random' : random,
 				'signature' : signature
