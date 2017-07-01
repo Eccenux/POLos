@@ -167,6 +167,10 @@ Można także spróbować dostosować konfigurację MySQL (w pliku `my.ini`) tak
 1. Sprawdź kodowanie plików CSV. Powinny być zapisanie jako pliku UTF-8. Najlepiej użyć Apache Open Office do tworzenia plików CSV.
 2. Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Najlepiej to wybrać podczas instalacji.
 
+| <a href="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv.png" alt="Zapisz jako CSV"></a> | <a href="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv-utf8.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv-utf8.png" alt="Zapisz z kodowaniem UTF-8"></a> |
+|---------------------------|-------------------------|
+| Zapisz jako plik typu CSV | Wybierz kodowanie UTF-8 |
+
 ### Nie udaje się import niektórych wierszy ###
 
 Podczas importu wykonywana jest walidacja danych. Odrzucane są m.in. wiersze z nieprawidłowym zakresem wieku (w wypadku profili), czy z nieprawidłowym PESEL (w wypadku danych osobowych).
@@ -182,7 +186,7 @@ WHERE row_state <> 0
 
 Sprawdzenie błędnych rekordów osobowych w ten sposób jest obecnie niemożliwe, ponieważ import błędnych wierszy został wyłączony ze względów wydajnościowych. Jeśli przy wstawianiu danych osobowych do bazy pojawi się błąd, to zrzut zapytania SQL powinien pojawić się w `polos\temp\last.personal.sql`.
 
-Żeby spróbować sprawdzić, które rekordy osobowe nie zostały zaimportowane można spróbować zrobić pełny eksport zaimportowane danych za pomocą poniższego zapytania. Wyniki zapytania można wyeksportować do pliku CSV i porównać z importowanym plikiem.
+Żeby spróbować sprawdzić, które rekordy osobowe nie zostały zaimportowane można spróbować zrobić pełny eksport danych osobowych za pomocą poniższego zapytania. Wyniki zapytania można wyeksportować do pliku CSV i porównać z importowanym plikiem.
 ```sql
 SELECT `region`, `pesel`, `name`, `surname`, `city`, `street`, `building_no`, `flat_no`, `zip_code` 
 FROM personal
