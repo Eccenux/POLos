@@ -166,7 +166,7 @@ PAUSE
 rem
 rem Download changes
 rem
-git fetch
+git pull
 IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo  /—————————
