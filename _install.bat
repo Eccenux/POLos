@@ -93,10 +93,11 @@ IF [%ERRORLEVEL%] NEQ [0] (
 echo.
 echo Wygl¹da na to, ¿e instalacja skryptów POLos powiod³a siê.
 echo Uwaga! Pamiêtaj, ¿e oprócz skryptów POLos potrzebujesz tak¿e oprogramowania serwerowego (tj. Apache, PHP, MySQL).
-echo Zobacz instrukcjê na:
-echo https://github.com/Eccenux/POLos/blob/master/INSTALL.md
+echo.
+echo Kontynuuj aby otworzyæ instrukcjê instalacji oprogramowania serwerowego.
 echo.
 PAUSE
+start "" "https://github.com/Eccenux/POLos/blob/master/INSTALL.md"
 GOTO :EOF
 
 
