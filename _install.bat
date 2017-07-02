@@ -113,16 +113,24 @@ IF NOT EXIST .\temp (
 	mkdir .\temp
 )
 
+rem full rights to Users group
+icacls "%tmpset_INSTALL_DIR%" /grant *S-1-5-32-545:(OI)(CI)F
+
+rem 
 rem Test access rights
+rem 
+rem test create access right
 mkdir .\temp--test
 IF NOT EXIST .\temp--test (
-	echo.
-	echo B³¹d! Nie masz uprawnieñ do modyfikacji folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
-	echo.
-	PAUSE
-	GOTO :EOF
+	GOTO access_fail
 )
 rmdir .\temp--test
+rem test Modify access right
+move index.php index-temp.php
+IF NOT EXIST .\index-temp.php (
+	GOTO access_fail
+)
+move index-temp.php index.php 
 
 rem Check if the dir is already controlled by Git
 IF EXIST "%tmpset_INSTALL_DIR%\.git" (
@@ -131,6 +139,13 @@ IF EXIST "%tmpset_INSTALL_DIR%\.git" (
 	goto update_no_git
 )
 goto :EOF
+
+:access_fail
+echo.
+echo B³¹d! Nie masz uprawnieñ do modyfikacji folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
+echo.
+PAUSE
+GOTO :EOF
 
 :update_with_git
 echo.
