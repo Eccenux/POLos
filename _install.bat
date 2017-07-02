@@ -46,6 +46,7 @@ IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo B³¹d! Nie uda³o siê uruchomiæ git. Musisz zainstalowaæ Git dla Windows.
 	echo.
+	PAUSE
 	GOTO :EOF
 )
 echo OK.
@@ -70,6 +71,7 @@ IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo B³¹d! Nie uda³o utworzyæ folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
 	echo.
+	PAUSE
 	GOTO :EOF
 )
 cd "%tmpset_INSTALL_DIR%"
@@ -85,6 +87,7 @@ IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
 	echo.
+	PAUSE
 	GOTO :EOF
 )
 echo.
@@ -93,6 +96,7 @@ echo Uwaga! Pamiêtaj, ¿e oprócz skryptów POLos potrzebujesz tak¿e oprogramowania
 echo Zobacz instrukcjê na:
 echo https://github.com/Eccenux/POLos/blob/master/INSTALL.md
 echo.
+PAUSE
 GOTO :EOF
 
 
@@ -110,6 +114,7 @@ IF NOT EXIST .\temp--test (
 	echo.
 	echo B³¹d! Nie masz uprawnieñ do modyfikacji folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
 	echo.
+	PAUSE
 	GOTO :EOF
 )
 rmdir .\temp--test
@@ -136,6 +141,7 @@ IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
 	echo.
+	PAUSE
 	GOTO :EOF
 )
 
@@ -204,6 +210,7 @@ IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
 	echo.
+	PAUSE
 	GOTO :EOF
 )
 
