@@ -9,3 +9,4 @@ __DB.sql
 \!_mysql*.bat
 /*.csv
 /temp
+/__settings.bat
