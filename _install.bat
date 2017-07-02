@@ -215,6 +215,11 @@ GOTO update_end
 echo.
 echo Wygl¹da na to, ¿e aktualizacja skryptów POLos powiod³a siê.
 echo.
+echo Kontynuuj aby uruchomiæ POLos.
+echo.
+echo Uwaga! Jeœli otworzy siê strona z b³êdem, to upewnij siê, ¿e oprogramowanie serwerowe jest prawid³owo zainstalowane.
+echo Jeœli oprogramowanie jest zainstalowane, to sprawdŸ logi.
+echo.
 PAUSE
 start "" "%tmpset_POLOS_URL%"
 GOTO :EOF
