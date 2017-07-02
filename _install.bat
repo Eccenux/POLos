@@ -76,6 +76,9 @@ IF [%ERRORLEVEL%] NEQ [0] (
 )
 cd "%tmpset_INSTALL_DIR%"
 
+rem full rights to Users group
+icacls "%tmpset_INSTALL_DIR%" /grant *S-1-5-32-545:(OI)(CI)F
+
 rem
 rem Download changes
 rem
