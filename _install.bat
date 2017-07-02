@@ -39,15 +39,17 @@ PAUSE
 rem
 rem Initial check
 rem
+echo.
 echo Sprawdzenie narzêdzi.
 git --version
 IF [%ERRORLEVEL%] NEQ [0] (
-    echo.
-    echo B³¹d! Nie uda³o siê uruchomiæ git. Musisz zainstalowaæ Git dla Windows.
-    echo.
+	echo.
+	echo B³¹d! Nie uda³o siê uruchomiæ git. Musisz zainstalowaæ Git dla Windows.
+	echo.
 	GOTO :EOF
 )
 echo OK.
+echo.
 
 rem
 rem Installation type
@@ -55,23 +57,33 @@ rem
 IF EXIST "%tmpset_INSTALL_DIR%" (
 	goto update
 ) else (
-    goto fresh_install
+	goto fresh_install
 )
 goto :EOF
 
 :fresh_install
+rem
+rem Directories
+rem
 mkdir "%tmpset_INSTALL_DIR%"
 IF [%ERRORLEVEL%] NEQ [0] (
-    echo.
-    echo B³¹d! Nie uda³o utworzyæ folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
+	echo.
+	echo B³¹d! Nie uda³o utworzyæ folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
 	echo.
 	GOTO :EOF
 )
 cd "%tmpset_INSTALL_DIR%"
+
+rem temp dir
+mkdir .\temp
+
+rem
+rem Download changes
+rem
 git clone %tmpset_GIT_REPO%
 IF [%ERRORLEVEL%] NEQ [0] (
-    echo.
-    echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
+	echo.
+	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
 	echo.
 	GOTO :EOF
 )
@@ -95,8 +107,8 @@ IF NOT EXIST .\temp (
 rem Test access rights
 mkdir .\temp--test
 IF NOT EXIST .\temp--test (
-    echo.
-    echo B³¹d! Nie masz uprawnieñ do modyfikacji folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
+	echo.
+	echo B³¹d! Nie masz uprawnieñ do modyfikacji folderu instalacyjnego. Spróbuj uruchomiæ skrypt z uprawnieniami administratora.
 	echo.
 	GOTO :EOF
 )
@@ -106,7 +118,7 @@ rem Check if the dir is already controlled by Git
 IF EXIST "%tmpset_INSTALL_DIR%\.git" (
 	goto update_with_git
 ) else (
-    goto update_no_git
+	goto update_no_git
 )
 goto :EOF
 
@@ -116,10 +128,13 @@ echo Znaleziono poprzednie pliki. Nast¹pi próba aktualizacji.
 echo.
 PAUSE
 
+rem
+rem Download changes
+rem
 git fetch
 IF [%ERRORLEVEL%] NEQ [0] (
-    echo.
-    echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
+	echo.
+	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
 	echo.
 	GOTO :EOF
 )
@@ -152,7 +167,7 @@ IF [%tmpset_MODIFIED%] NEQ [0] (
 	type temp\%tmpset_TODAY%_locally_modified.txt
 	echo.
 )
-IF [%tmpset_MODIFIED%] NEQ [0] (
+IF [%tmpset_DELETED%] NEQ [0] (
 	echo.
 	echo Uwaga! Znaleziono usuniête pliki. Poni¿sze pliki zostan¹ przywrócone.
 	echo Aby dokoñczyæ aktualizacjê zalecane jest przywrócenie plików.
@@ -186,8 +201,8 @@ git init
 git remote add origin %tmpset_GIT_REPO%
 git fetch
 IF [%ERRORLEVEL%] NEQ [0] (
-    echo.
-    echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
+	echo.
+	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
 	echo.
 	GOTO :EOF
 )
