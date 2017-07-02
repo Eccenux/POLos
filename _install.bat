@@ -76,13 +76,10 @@ IF [%ERRORLEVEL%] NEQ [0] (
 )
 cd "%tmpset_INSTALL_DIR%"
 
-rem temp dir
-mkdir .\temp
-
 rem
 rem Download changes
 rem
-git clone %tmpset_GIT_REPO%
+git clone %tmpset_GIT_REPO% .
 IF [%ERRORLEVEL%] NEQ [0] (
 	echo.
 	echo B³¹d! Nie uda³o siê pobraæ danych. Upewnij siê, ¿e masz po³¹czenie z Internetem i spróbuj ponownie.
@@ -90,6 +87,10 @@ IF [%ERRORLEVEL%] NEQ [0] (
 	PAUSE
 	GOTO :EOF
 )
+
+rem temp dir
+mkdir .\temp
+
 echo.
 echo Wygl¹da na to, ¿e instalacja skryptów POLos powiod³a siê.
 echo Uwaga! Pamiêtaj, ¿e oprócz skryptów POLos potrzebujesz tak¿e oprogramowania serwerowego (tj. Apache, PHP, MySQL).
