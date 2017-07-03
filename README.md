@@ -8,9 +8,15 @@ POLos jest podzielony na 3 etapy:
 2. **Losowanie** -- losowanie za pomocą usługi Random.org.
 3. **Eksport danych** -- eksport danych wylosowanych osób wraz ze specjalnym identyfikatorem, który powinien zostać dołączony do zaproszenia.
 
-Informacje o wstępnej instalacji serwera i konfiguracji serwera → [INSTALL.md](INSTALL.md).
-Informacje o instalacji skryptów i aktualizacji POLos → [UPDATE.md](UPDATE.md).
-Informacje o rozwiązywaniu problemów → [HELP.md](HELP.md).
+Instrukcje dodatkowe:
+* Informacje o wstępnej instalacji serwera i konfiguracji serwera → [INSTALL.md](INSTALL.md).
+* Informacje o instalacji skryptów i aktualizacji POLos → [UPDATE.md](UPDATE.md).
+* Informacje o rozwiązywaniu problemów → [HELP.md](HELP.md).
+
+Poniżej natomiast znajdziesz opis przebiegu działania programu oraz szczegółowy opis wymagań.
+
+Licencja
+---------
 
 **Program został sfinansowany ze środków Gminy Miasta Gdańsk** i udostępniony na otwartej licencji CC-BY 4.0. Patrz: [LICENSE.md](LICENSE.md).
 
