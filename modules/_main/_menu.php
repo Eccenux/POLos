@@ -4,6 +4,8 @@
 	$pv_menuItem->order = -1;
 
 	$pv_menuItem->addSubItem('README','POLos');
-	$pv_menuItem->addSubItem('INSTALL','Instalacja i problemy');
+	$pv_menuItem->addSubItem('INSTALL','Instalacja');
+	$pv_menuItem->addSubItem('UPDATE','Aktualizacja');
+	$pv_menuItem->addSubItem('HELP','Problemy');
 	$pv_menuItem->addSubItem('LICENSE','Licencja');
 ?>

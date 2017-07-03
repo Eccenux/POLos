@@ -12,14 +12,14 @@
 		case 'auth-fail':
 			$pv_controller->tpl->file = 'auth-fail.tpl.php';
 		break;
+		case 'README':
 		case 'INSTALL':
-			$pv_controller->tpl->file = 'INSTALL.html';
-		break;
+		case 'UPDATE':
+		case 'HELP':
 		case 'LICENSE':
-			$pv_controller->tpl->file = 'LICENSE.html';
+			$pv_controller->tpl->file = $pv_controller->action.'.html';
 		break;
 		default:
-			$pv_controller->tpl->file = 'README.html';
 		break;
 	}
 

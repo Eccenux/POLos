@@ -1,0 +1,71 @@
+<h2>Typowe problemy</h2>
+<h3>Apache nie uruchamia się</h3>
+<ol>
+<li>Upewnij się, że ścieżka do pliku <code>php5apache2_2.dll</code> jest prawidłowa.</li>
+<li>Upewnij się, że folder podany w dyrektywie <code>DocumentRoot</code> w <code>httpd.conf</code> istnieje.</li>
+<li>Upewnij się, że port podany w dyrektywie <code>Listen</code> w <code>httpd.conf</code> jest wolny. Można to zrobić poleceniem <code>netstat -aon | findstr 80</code> (zakładając, że <code>80</code> to numer portu). </li>
+</ol>
+<h3>PHP nie uruchamia się</h3>
+<ol>
+<li>Upewnij się, że w <code>conf\mime.types</code> znajdują się wpisy:
+<pre><code>application/x-httpd-php php
+application/x-httpd-php-source  phps</code></pre></li>
+<li>Upewnij się także, że w pliku <code>httpd.conf</code> znajdują się polecenia <code>PHPIniDir</code> oraz <code>LoadModule php5_module</code> podane powyżej.</li>
+<li>Upewnij się też, że plik <code>php5apache2_2.dll</code> jest w folderze PHP.</li>
+</ol>
+<h3>Import nie działa</h3>
+<p>Spróbuj najpierw z importu mniejszej ilości danych (np. pierwsze 1000 wierszy). POLos powinien wyświetlić komunikat z informacją co jest nie tak z danymi. </p>
+<p>Jeśli nie działa import dużych plików:</p>
+<ol>
+<li>W <code>php.ini</code> powiększ <code>upload_max_filesize</code> tak by był większy niż plik CSV.</li>
+<li>W <code>php.ini</code> powiększ <code>post_max_size</code> tak by był przynajmniej o 10M większy od <code>upload_max_filesize</code>.</li>
+<li>W <code>php.ini</code> powiększ <code>memory_limit</code> (zwłaszcza jeśli w logu PHP pojawia się komunikat o problemie przydziału pamięci).</li>
+<li>W <code>my.ini</code> powiększ <code>max_allowed_packet</code> na około 2 razy więcej niż plik CSV. </li>
+</ol>
+<h3>Import działa zbyt wolno</h3>
+<p>Import danych osobowych dla dużego miasta może trwać bardzo długo na powolnym lub silnie obciążonym komputerze. To znaczy import 100 tysięcy może nawet trwać godzinę, podczas gdy na szybkim, dobrze skonfigurowanym komputerze potrwa minutę. Dlatego zalecane jest przetwarzanie danych na dysku SSD. </p>
+<p>Na dysku SSD (lub innym szybkim dysku) powinny być przede wszystkim:</p>
+<ul>
+<li>Folder tymczasowy PHP (określony przez <code>upload_tmp_dir</code> w pliku <code>php.ini</code>).</li>
+<li>Folder danych MySQL (określony przez <code>datadir</code> w pliku <code>my.ini</code>).</li>
+</ul>
+<p>Można także spróbować dostosować konfigurację MySQL (w pliku <code>my.ini</code>) tak, żeby używała więcej pamięci RAM. Można w tym celu skorzystać z pliku <code>my-huge.ini</code> (z folderu MySQL). Ale można go wykorzystać jedynie jako wzorzec (wskazówki), bo może zawierać inne ścieżki niż używany plik <code>my.ini</code>.</p>
+<h3>W nazwach dzielnic nie ma polskich znaków</h3>
+<ol>
+<li>Sprawdź kodowanie plików CSV. Powinny być zapisanie jako pliku UTF-8. Najlepiej użyć Apache Open Office do tworzenia plików CSV.</li>
+<li>Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Najlepiej to wybrać podczas instalacji.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><a target="_blank" href="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv.png" alt="Zapisz jako CSV"></a></th>
+<th><a target="_blank" href="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv-utf8.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv-utf8.png" alt="Zapisz z kodowaniem UTF-8"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zapisz jako plik typu CSV</td>
+<td>Wybierz kodowanie UTF-8</td>
+</tr>
+</tbody>
+</table>
+<h3>Nie udaje się import niektórych wierszy</h3>
+<p>Podczas importu wykonywana jest walidacja danych. Odrzucane są m.in. wiersze z nieprawidłowym zakresem wieku (w wypadku profili), czy z nieprawidłowym PESEL (w wypadku danych osobowych).</p>
+<p>Błędne dane można sprawdzić w bazie danych. Do wykonywania zapytań SQL można np. skorzystać z <a target="_blank" href="https://www.phpmyadmin.net/downloads/">phpMyAdmin</a>.</p>
+<p>Zapytanie do sprawdzania błędnych rekordów profili:</p>
+<pre><code class="language-sql">SELECT *
+FROM profile
+WHERE row_state &lt;&gt; 0</code></pre>
+<p>Sprawdzenie błędnych rekordów osobowych w ten sposób jest obecnie niemożliwe, ponieważ import błędnych wierszy został wyłączony ze względów wydajnościowych. Jeśli przy wstawianiu danych osobowych do bazy pojawi się błąd, to zrzut zapytania SQL powinien pojawić się w <code>polos\temp\last.personal.sql</code>.</p>
+<p>Żeby spróbować sprawdzić, które rekordy osobowe nie zostały zaimportowane można spróbować zrobić pełny eksport danych osobowych za pomocą poniższego zapytania. Wyniki zapytania można wyeksportować do pliku CSV i porównać z importowanym plikiem.</p>
+<pre><code class="language-sql">SELECT `region`, `pesel`, `name`, `surname`, `city`, `street`, `building_no`, `flat_no`, `zip_code` 
+FROM personal
+ORDER BY id ASC</code></pre>
+<p>Żeby wykonać eksport wyników zapytania w phpMyAdmin, musisz wykonać zapytanie, a potem <strong>pod tabelką wyników</strong> wybrać operację eksportu.</p>
+<h2>Inne problemy i diagnostyka</h2>
+<ol>
+<li>Na stronie <code>sys-test.php</code> znajdują się wymagania co do niektórych parametrów PHP oraz MySQL. Sprawdź czy wszystko się zgadza. Pamiętaj, że zalecane wartości tam podane są przewidziane na przetwarzanie plików CSV między 20-30 MB. W razie wątpliwości lepiej jest wybrać większe wartości. </li>
+<li>Sprawdź zawartość pliku z błędami POLos (w wypadku złapanych błędów w folderze polos utworzy się <code>.err.log</code>).</li>
+<li>Sprawdź zawartość pliku z błędami PHP (systemowe błędy PHP powinny pojawić się w pliku wskazanym przez opcję <code>error_log</code>; zazwyczaj nazywa się <code>php-errors.log</code> lub <code>php_errors.log</code>).</li>
+<li>Sprawdź zawartość pliku z błędami Apache (błędy uruchamia i funkcjonowania Apache powinny pojawić się w pliku <code>logs\error.log</code>, w folderze Apache).</li>
+</ol>
