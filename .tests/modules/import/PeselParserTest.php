@@ -102,10 +102,29 @@ class PeselParserTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testAgeFromPesel()
 	{
+		// calculationg from "now"
 		$age2 = strtotime("-50 years"); // must result in a date between 1900-1999 to work
 		$pesel = date("ymd", $age2) . "00112";
 		$result = PeselParser::ageFromPesel($pesel);
 		$this->assertEquals(50, $result, "Testing: $pesel");
+
+		// calculating from any date
+		$baseDate = "2000-01-02";
+		$values = array(
+			'500101' => 50,
+			'400101' => 60,
+			'300101' => 70,
+			'200101' => 80,
+			'100101' => 90,
+			'100102' => 90,
+			'100103' => 89,
+		);
+		foreach ($values as $peselYmd => $expected)
+		{
+			$pesel = $peselYmd."00112";
+			$result = PeselParser::ageFromPesel($pesel, $baseDate);
+			$this->assertEquals($expected, $result, "Testing: $pesel");
+		}
 	}
 
 }

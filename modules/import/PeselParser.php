@@ -60,12 +60,18 @@ class PeselParser
 
 	/**
 	 * Calculate age form PESEL.
+	 *
+	 * Note! Peopole born on 2000-01-01 are considered to be 18 on 2018-01-01.
+	 *
 	 * @param string $pesel
+	 * @param string $time Either "now" or ISO compatible date like '2017-12-31'
 	 * @return int
 	 */
-	static function ageFromPesel($pesel) {
+	static function ageFromPesel($pesel, $time="now") {
 		$date = new DateTime(self::birthFromPesel($pesel));
-		$now = new DateTime();
+		$now = new DateTime($time);
+		$now->setTime(0,0,0);
+		$now->modify("+1 day"); // next age is gained on the day given => we must "cheat" and compare with next day
 		$diff = $date->diff($now);
 		return $diff->y;
 	}

@@ -5,7 +5,7 @@
 	require_once 'PeselParser.php';
 
 	$columnParsers = array();
-	$columnParsers['pesel'] = function($name, $pesel){
+	$columnParsers['pesel'] = function($name, $pesel) use ($ageBaseTime) {
 		$ret = array(
 			'state' => CsvRowState::INVALID,
 			'columns' => array(),
@@ -14,7 +14,7 @@
 			$ret['state'] = CsvRowState::OK;
 			$ret['columns']['pesel'] = $pesel;
 			$ret['columns']['sex'] = PeselParser::sexFromPesel($pesel);
-			$ret['columns']['age'] = PeselParser::ageFromPesel($pesel);
+			$ret['columns']['age'] = PeselParser::ageFromPesel($pesel, $ageBaseTime);
 		}
 		return $ret;
 	};

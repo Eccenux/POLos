@@ -21,6 +21,15 @@
 		//echo "<pre>".var_export($_POST, true)."</pre>";
 		//echo "<pre>".var_export($_FILES, true)."</pre>";
 
+		// base date for age calculation; date considered to be "today"
+		$ageBaseTime = empty($_POST['age-base']) ? 'now' : $_POST['age-base'];
+		try {
+			$dateTest = new DateTime($ageBaseTime);
+		} catch (Exception $e) {
+			trigger_error($e->getMessage(), E_USER_NOTICE);
+			return $pv_controller->tpl->message = '<div class="message error">Podana data jest nieprawidłowa</div>';
+		}
+
 		require_once ('CsvParser.php');
 		require_once ('CsvParser.personal.php');
 		require_once ('ImportHelper.php');

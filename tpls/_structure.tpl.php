@@ -17,6 +17,7 @@
 	<link type="text/css" href="./js/jquery/css/ui-lightness/jquery-ui-custom.css?0331" rel="stylesheet">
 	<script type="text/javascript" src="./js/jquery/js/jquery-min.js"></script>
 	<script type="text/javascript" src="./js/jquery/js/jquery-ui-custom.min.js"></script>
+	<script type="text/javascript" src="./js/jquery/js/datepicker.pl.js"></script>
 	
 	<!-- jQuery inits and other global stuff -->
 	<script type="text/javascript" src="./js/logger.js?0331"></script>
