@@ -20,6 +20,7 @@
 			$pv_controller->tpl->file = $pv_controller->action.'.html';
 		break;
 		default:
+			$pv_controller->tpl->file = 'README.html';
 		break;
 	}
 
