@@ -6,6 +6,25 @@ Przygotowanie do szybkiej instalacji
 Instalacja nie jest skomplikowana, ale musi być wykonana w sposób uważny. Dlatego przygotowałem filmy instruktażowe, które pokazują jak zainstalować wymagane oprogramowanie (Git) i wykonać pierwszą, automatyczną instalację skryptów → **[playlista "POLos" na Youtube](https://www.youtube.com/watch?v=LwT5XqH1_AE&list=PLEy8lmAN1vwS0brKQ0NFzTTKWTdJy4Uvz)**.
 
 
+Jeśli plik `_install.bat` nie uruchamia się, tylko otwiera się notatnik, to za pewne jest źle zapisany. Niektóre wersje Windows ukrywają prawdziwe rozszerzenia plików, co może powodować takie problemy.
+
+### Pokazanie prawdziwego rozszerzenia w Windows 10 ###
+
+Żeby zobaczyć prawdziwe rozszerzenia trzeba zmienić ustawienia wyświetlania (widoku) Windows Explorera.
+
+| Ukryte rozszerzenie | Prawdziwe rozszerzenie |
+|---------------------------|-------------------------|
+| <a href="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-see-1.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-see-1.png" alt="Ukryte rozszerzenie"></a> | <a href="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-see-2.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-see-2.png" alt="Prawdziwe rozszerzenie"></a> |
+
+### Zmiana rozszerzenia ###
+
+Rozszerzenie zmienia się tak jak zmienia się nazwę. Wystarczy zaznaczyć plik i wcisnąć F2. 
+
+| Potwierdzenie zmiany rozszerzenia | Poprawne rozszerzenie |
+|---------------------------|-------------------------|
+| <a href="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-change-1.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-change-1.png" alt="Ukryte rozszerzenie"></a> | <a href="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-change-2.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/.doc/images/install-bat-extension-change-2.png" alt="Prawdziwe rozszerzenie"></a> |
+
+
 Pierwsza instalacja
 -------------------
 
