@@ -41,7 +41,7 @@ Można także spróbować dostosować konfigurację MySQL (w pliku `my.ini`) tak
 1. Sprawdź kodowanie plików CSV. Powinny być zapisanie jako pliku UTF-8. Najlepiej użyć Apache Open Office do tworzenia plików CSV.
 2. Należy pamiętać, że MySQL musi być skonfigurowany tak, żeby obsługiwać kodowanie UTF-8. Najlepiej to wybrać podczas instalacji.
 
-| <a href="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv.png" alt="Zapisz jako CSV"></a> | <a href="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv-utf8.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/images/screen-oo-save-as-csv-utf8.png" alt="Zapisz z kodowaniem UTF-8"></a> |
+| <a href="https://raw.github.com/Eccenux/POLos/master/.doc/images/screen-oo-save-as-csv.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/.doc/images/screen-oo-save-as-csv.png" alt="Zapisz jako CSV"></a> | <a href="https://raw.github.com/Eccenux/POLos/master/.doc/images/screen-oo-save-as-csv-utf8.png" target="_blank"><img style="width:300px" src="https://raw.github.com/Eccenux/POLos/master/.doc/images/screen-oo-save-as-csv-utf8.png" alt="Zapisz z kodowaniem UTF-8"></a> |
 |---------------------------|-------------------------|
 | Zapisz jako plik typu CSV | Wybierz kodowanie UTF-8 |
 
