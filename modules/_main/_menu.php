@@ -7,5 +7,4 @@
 	$pv_menuItem->addSubItem('INSTALL','Instalacja');
 	$pv_menuItem->addSubItem('UPDATE','Aktualizacja');
 	$pv_menuItem->addSubItem('HELP','Problemy');
-	$pv_menuItem->addSubItem('LICENSE','Licencja');
 ?>
