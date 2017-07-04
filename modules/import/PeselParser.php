@@ -70,8 +70,7 @@ class PeselParser
 	static function ageFromPesel($pesel, $time="now") {
 		$date = new DateTime(self::birthFromPesel($pesel));
 		$now = new DateTime($time);
-		$now->setTime(0,0,0);
-		$now->modify("+1 day"); // next age is gained on the day given => we must "cheat" and compare with next day
+		$now->setTime(12,0,0);		// this is required due to DST or other timezone problems
 		$diff = $date->diff($now);
 		return $diff->y;
 	}
