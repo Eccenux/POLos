@@ -52,4 +52,3 @@
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;
 	$pv_controller->tpl->file = 'controller.invitations.tpl.php';
-?>
