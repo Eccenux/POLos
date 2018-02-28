@@ -7,10 +7,8 @@
 	require_once ('./inc/numericEncoder.php');
 	require_once ('./inc/db/personal.php');
 	$dbPersonal = new dbPersonal();
-
 	$tplData = array();
 	$tplData['file'] = 'export.invites.csv';
-
 	// get
 	$dbPersonal->pf_getRecords($rows, array(
 		'profile_id' => array('IS NOT', 'NULL'),
@@ -27,20 +25,19 @@
 		'flat_no',
 		'zip_code',
 	));
-
 	//
 	// create file
 	$fp = fopen($tplData['file'], 'w');
 	// header
 	fputcsv($fp, array(
-		'kod',
-		'imię',
-		'naziwsko',
-		'miasto',
-		'ulica',
-		'nr budynku',
-		'nr lokalu',
-		'kod pocztowy',
+		'pass_code',
+		'firstname',
+		'lastname',
+		'city',
+		'street',
+		'build_nr',
+		'flat_nr',
+		'post_code',
 	));
 	// rows
 	$encoder = new NumericEncoder();
@@ -50,10 +47,8 @@
 		fputcsv($fp, $row);
 	}
 	fclose($fp);
-
 	// tpl
 	$tplData['count'] = count($rows);
-
 	// prepare data for render
 	$pv_controller->tpl->data = $tplData;
 	$pv_controller->tpl->file = 'controller.invitations.tpl.php';
