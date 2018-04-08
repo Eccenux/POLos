@@ -35,7 +35,7 @@
 	fputcsv($fp, array(
 		'kod',
 		'imię',
-		'naziwsko',
+		'nazwisko',
 		'miasto',
 		'ulica',
 		'nr budynku',
